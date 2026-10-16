@@ -4,279 +4,124 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Martin Drieux</title>
-<meta name="description" content="Martin Drieux — ML researcher working on generative models and LLM post-training. MS in Machine Learning, Carnegie Mellon University.">
+<meta name="description" content="Martin Drieux, machine learning researcher. MS in Machine Learning, Carnegie Mellon University.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
 <style>
-html{color-scheme:light dark}
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0}
-img{max-width:100%}
 
-/* Layout: one left-aligned reading column; header pairs the name with a small flow-field drawing
-   (trajectories settling onto equilibria, the subject of his current paper); entries use a date rail. */
+/* Layout: plain single column on white, like a simple academic homepage. Light only, by choice. */
 :root {
-  --bg: #f6f7f5;
-  --fg: #15191c;
-  --muted: #5b646b;
-  --rule: #dce0de;
-  --accent: #1d5c86;
-  --accent-soft: #d9e6ef;
-  --font-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #666b70;
+  --rule: #e6e6e6;
+  --accent: #1f5f8b;
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --step--1: 0.84rem;
-  --step-0: 1.05rem;
-  --step-1: 1.25rem;
-  --step-3: clamp(2rem, 1.4rem + 2.6vw, 2.9rem);
+  --font-ui: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #101316; --fg: #e5e8ea; --muted: #99a2a9; --rule: #2a3137;
-    --accent: #84b9dc; --accent-soft: #1b2c38; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #101316; --fg: #e5e8ea; --muted: #99a2a9; --rule: #2a3137;
-  --accent: #84b9dc; --accent-soft: #1b2c38; color-scheme: dark;
-}
-
 body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
-  font-size: var(--step-0);
+  font-size: 1.05rem;
   line-height: 1.6;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  -webkit-font-smoothing: antialiased;
 }
-.page { max-width: 46rem; margin: 0 auto; padding-block: clamp(2rem, 6vw, 4.5rem) 3rem; display: grid; gap: 2.75rem; }
+.page { max-width: 42rem; margin: 0 auto; padding-block: clamp(2rem, 6vw, 4rem) 3rem; }
 
-a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
-a:hover { border-bottom-color: var(--accent); }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* Header */
-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 2rem; align-items: end; }
-h1 {
-  font-family: var(--font-display); font-weight: 700; font-size: var(--step-3);
-  letter-spacing: -0.02em; line-height: 1.05; margin: 0 0 0.6rem; text-wrap: balance;
-}
-.role { margin: 0; color: var(--muted); font-size: var(--step-0); max-width: 34rem; }
-.links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; margin: 1rem 0 0; padding: 0; list-style: none;
-  font-family: var(--font-mono); font-size: var(--step--1); }
-.links li { display: inline-flex; }
-.email { color: var(--fg); user-select: all; border: 0; }
-#flow { width: 168px; height: 168px; display: block; border-radius: 50%; background: var(--accent-soft); max-width: 100%; }
+h1 { font-family: var(--font-body); font-weight: 600; font-size: 2rem; line-height: 1.2; margin: 0 0 0.25rem; }
+.role { margin: 0; color: var(--muted); }
+.links { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin: 0.75rem 0 0; padding: 0; list-style: none;
+  font-family: var(--font-ui); font-size: 0.95rem; }
+.email { color: var(--fg); user-select: all; }
 
-.intro { margin: 0; max-width: 65ch; }
+.intro { margin-top: 2rem; }
 .intro p { margin: 0 0 0.9rem; }
-.intro p:last-child { margin-bottom: 0; }
 
-/* Sections */
-section { display: grid; gap: 1.1rem; }
-h2 {
-  font-family: var(--font-display); font-weight: 600; font-size: var(--step--1);
-  text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
-  margin: 0; padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule);
-}
-.entries { display: grid; gap: 1.35rem; margin: 0; padding: 0; list-style: none; }
-.entry { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0 1.25rem; }
-.when { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted);
-  font-variant-numeric: tabular-nums; padding-top: 0.2rem; }
-.what { min-width: 0; }
-.what h3 { font-family: var(--font-display); font-weight: 600; font-size: var(--step-1);
-  line-height: 1.3; margin: 0; letter-spacing: -0.005em; text-wrap: balance; }
-.what h3 .org { font-weight: 500; color: var(--muted); }
-.meta { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.97rem; }
-.meta b { color: var(--fg); font-weight: 600; }
-.what p.note { margin: 0.4rem 0 0; }
-.tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.5rem; font-family: var(--font-mono); font-size: var(--step--1); }
-.tags a { border: 1px solid var(--rule); border-radius: 3px; padding: 0.05rem 0.45rem; }
-.tags a:hover { border-color: var(--accent); }
-.venue { font-family: var(--font-mono); font-size: var(--step--1); color: var(--accent); letter-spacing: 0.02em; }
-.figure { font-family: var(--font-mono); font-size: 0.93em; white-space: nowrap; }
+h2 { font-family: var(--font-ui); font-weight: 600; font-size: 0.95rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
+ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.item b { font-weight: 600; }
+.item .sub { color: var(--muted); }
+.item p { margin: 0.15rem 0 0; }
+.date { font-family: var(--font-ui); font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 1rem; align-items: baseline; }
 
-footer { color: var(--muted); font-size: var(--step--1); font-family: var(--font-mono);
-  border-top: 1px solid var(--rule); padding-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; justify-content: space-between; }
-
-@media (max-width: 560px) {
-  header { grid-template-columns: 1fr; }
-  #flow { width: 120px; height: 120px; grid-row: 1; }
-  .entry { grid-template-columns: 1fr; gap: 0.15rem; }
-  .when { padding-top: 0; }
-}
+footer { margin-top: 3rem; color: var(--muted); font-family: var(--font-ui); font-size: 0.9rem; }
 </style>
 </head>
 <body>
 
 <div class="page">
   <header>
-    <div>
-      <h1>Martin Drieux</h1>
-      <p class="role">Machine learning researcher. MS in Machine Learning at Carnegie Mellon, graduating December 2026.</p>
-      <ul class="links">
-        <li><a class="email" href="mailto:mdrieux@cs.cmu.edu">mdrieux@cs.cmu.edu</a></li>
-        <li><a href="cv.pdf">CV</a></li>
-        <li><a href="https://github.com/martindrieux">GitHub</a></li>
-        <li><a href="https://linkedin.com/in/martin-drieux">LinkedIn</a></li>
-      </ul>
-    </div>
-    <canvas id="flow" width="336" height="336" aria-label="Animated drawing of trajectories flowing toward stable points" role="img"></canvas>
+    <h1>Martin Drieux</h1>
+    <p class="role">Machine learning researcher · MS in Machine Learning, Carnegie Mellon University (Dec. 2026)</p>
+    <ul class="links">
+      <li><a class="email" href="mailto:mdrieux@cs.cmu.edu">mdrieux@cs.cmu.edu</a></li>
+      <li><a href="https://github.com/martindrieux">GitHub</a></li>
+      <li><a href="https://linkedin.com/in/martin-drieux">LinkedIn</a></li>
+    </ul>
   </header>
 
   <div class="intro">
-    <p>I work on generative models and on post-training large language models. At Carnegie Mellon I study flow maps: models that learn to jump along a generative trajectory in one or a few steps instead of hundreds. This summer at Mistral AI I worked on post-training for coding, on test writing and on the tests used to verify code.</p>
+    <p>I work on generative models and on post-training large language models. At Carnegie Mellon I study flow maps, models that generate in one or a few steps instead of hundreds. This summer at Mistral AI I worked on post-training for coding, on test writing and on the tests used to verify code.</p>
     <p>Before CMU I studied applied math, physics and machine learning at École Polytechnique, and did research on neural PDE solvers at UC Berkeley.</p>
   </div>
 
-  <section aria-labelledby="pubs">
-    <h2 id="pubs">Papers</h2>
-    <ul class="entries">
-      <li class="entry">
-        <div class="when">2026</div>
-        <div class="what">
-          <h3>Equilibrium Flow Maps</h3>
-          <p class="meta">J. Lin*, <b>M. Drieux*</b>, J. Huang, S. Dandapanthula, N. M. Boffi &middot; <span class="venue">Under review, ICLR 2027</span></p>
-          <p class="note">Flow maps for time-free (autonomous) generative dynamics: one model generates in a single step or refines over many. On ImageNet 256&times;256 it reaches <span class="figure">FID 2.83</span> in one step and <span class="figure">1.67</span> in eight, and keeps improving with more steps.</p>
-          <div class="tags"><a href="https://drive.google.com/file/d/1aRbpp9V1KywhymptpH-F4nQj56F7VkYI/view?usp=sharing">PDF</a></div>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="when">2026</div>
-        <div class="what">
-          <h3>Supervised and Unsupervised Neural Network Solver for First Order Hyperbolic Nonlinear PDEs</h3>
-          <p class="meta"><b>Co-first author</b>, with A. M. Bayen et al. &middot; <span class="venue">arXiv preprint</span></p>
-          <p class="note">NFVM, a neural finite-volume solver with convergence guarantees: 8&times; more accurate than classical numerical solvers at equal compute.</p>
-          <div class="tags"><a href="https://arxiv.org/abs/2601.06388">arXiv</a></div>
-        </div>
-      </li>
-    </ul>
-    <p class="meta">* equal contribution</p>
-  </section>
+  <h2>Experience</h2>
+  <ul class="list">
+    <li class="item">
+      <div class="head"><span><b>Mistral AI</b> <span class="sub">· Research Scientist Intern</span></span><span class="date">2026</span></div>
+      <p>Improved a coding model's test writing with evals, synthetic data and SFT + RL: 15% → 32% on SWE Atlas Test Writing. Also improved the tests used as verifiers for general coding. Both went into the training of Mistral Large 4.</p>
+    </li>
+    <li class="item">
+      <div class="head"><span><b>Carnegie Mellon University</b> <span class="sub">· Research Assistant</span></span><span class="date">2025 – now</span></div>
+      <p>Flow-map generative models with Prof. Nicholas Boffi. Earlier, stochastic sampling and fixed-point training for Mean Flow models in Prof. Zico Kolter's group, with Zhengyang Geng.</p>
+    </li>
+    <li class="item">
+      <div class="head"><span><b>BAIR, UC Berkeley</b> <span class="sub">· Visiting Student Researcher</span></span><span class="date">2025</span></div>
+      <p>Neural PDE solvers with Prof. Alexandre Bayen, extended to Hamilton–Jacobi equations for control.</p>
+    </li>
+    <li class="item">
+      <div class="head"><span><b>Earlier</b></span><span class="date">2022 – 2024</span></div>
+      <p>Consultant intern at Avencore on a $100M+ cost-reduction project in uranium extraction. Deputy company commander in the Gendarmerie Nationale, building forensic tools for victim identification.</p>
+    </li>
+  </ul>
 
-  <section aria-labelledby="exp">
-    <h2 id="exp">Experience</h2>
-    <ul class="entries">
-      <li class="entry">
-        <div class="when">2026</div>
-        <div class="what">
-          <h3>Research Scientist Intern <span class="org">· Mistral AI, Palo Alto</span></h3>
-          <p class="note">Improved a coding model's test writing with evals, synthetic data and SFT + RL: <span class="figure">15% &rarr; 32%</span> on SWE Atlas Test Writing. Also improved the tests used as verifiers for general coding. Both went into the training of Mistral Large 4.</p>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="when">2025&ndash;now</div>
-        <div class="what">
-          <h3>Research Assistant <span class="org">· Carnegie Mellon University</span></h3>
-          <p class="note">Equilibrium Flow Maps with Prof. Nicholas Boffi. Earlier, stochastic sampling and fixed-point training for Mean Flow models in Prof. Zico Kolter's group, with Zhengyang Geng.</p>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="when">2025</div>
-        <div class="what">
-          <h3>Visiting Student Researcher <span class="org">· BAIR, UC Berkeley</span></h3>
-          <p class="note">Neural PDE solvers with Prof. Alexandre Bayen, extended to Hamilton&ndash;Jacobi equations for control.</p>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="when">2022&ndash;24</div>
-        <div class="what">
-          <h3>Before research</h3>
-          <p class="note">Consultant intern at Avencore on a $100M+ cost-reduction project in uranium extraction. Deputy company commander in the Gendarmerie Nationale, building forensic tools for victim identification.</p>
-        </div>
-      </li>
-    </ul>
-  </section>
+  <h2>Papers</h2>
+  <ul class="list">
+    <li class="item">
+      <b>Supervised and Unsupervised Neural Network Solver for First Order Hyperbolic Nonlinear PDEs</b>
+      <p class="sub">Co-first author, with A. M. Bayen et al. · arXiv 2026 · <a href="https://arxiv.org/abs/2601.06388">arXiv</a></p>
+    </li>
+  </ul>
 
-  <section aria-labelledby="edu">
-    <h2 id="edu">Education &amp; honors</h2>
-    <ul class="entries">
-      <li class="entry">
-        <div class="when">2026</div>
-        <div class="what">
-          <h3>MS in Machine Learning <span class="org">· Carnegie Mellon University</span></h3>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="when">2025</div>
-        <div class="what">
-          <h3>Ingénieur (B.S./M.S.) <span class="org">· École Polytechnique</span></h3>
-          <p class="meta">Applied math, physics and ML &middot; GPA 3.96/4.0 &middot; ranked 9th nationwide on the entrance exam, 1st in physics</p>
-        </div>
-      </li>
-      <li class="entry">
-        <div class="when">2024</div>
-        <div class="what">
-          <h3>International Physicists' Tournament</h3>
-          <p class="meta">Silver medal internationally (2nd of 21 countries), gold nationally</p>
-        </div>
-      </li>
-    </ul>
-  </section>
+  <h2>Education &amp; honors</h2>
+  <ul class="list">
+    <li class="item">
+      <div class="head"><span><b>Carnegie Mellon University</b> <span class="sub">· MS in Machine Learning</span></span><span class="date">2026</span></div>
+    </li>
+    <li class="item">
+      <div class="head"><span><b>École Polytechnique</b> <span class="sub">· Ingénieur (B.S./M.S.)</span></span><span class="date">2025</span></div>
+      <p class="sub">Applied math, physics and ML · GPA 3.96/4.0 · ranked 9th nationwide on the entrance exam, 1st in physics</p>
+    </li>
+    <li class="item">
+      <div class="head"><span><b>International Physicists' Tournament</b></span><span class="date">2024</span></div>
+      <p class="sub">Silver medal internationally (2nd of 21 countries), gold nationally</p>
+    </li>
+  </ul>
 
-  <footer>
-    <span>Pittsburgh, PA</span>
-    <span>Updated October 2026</span>
-  </footer>
+  <footer>Pittsburgh, PA · Updated October 2026</footer>
 </div>
-
-<script>
-(() => {
-  const c = document.getElementById('flow');
-  const ctx = c.getContext('2d');
-  const W = c.width, H = c.height, R = W / 2;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Three stable points ("data") that the autonomous field b(x) pulls trajectories toward.
-  const eq = [[0.36, 0.38], [0.66, 0.42], [0.5, 0.7]].map(([x, y]) => [x * W, y * H]);
-  function field(x, y) {
-    // Gradient-like pull toward the nearest equilibrium plus a gentle swirl.
-    let best = null, bd = Infinity;
-    for (const p of eq) { const d = (p[0]-x)**2 + (p[1]-y)**2; if (d < bd) { bd = d; best = p; } }
-    const dx = best[0] - x, dy = best[1] - y;
-    return [dx * 0.035 - dy * 0.012, dy * 0.035 + dx * 0.012];
-  }
-  let colors;
-  function readColors() {
-    const s = getComputedStyle(document.documentElement);
-    colors = { ink: s.getPropertyValue('--accent').trim(), bg: s.getPropertyValue('--accent-soft').trim() };
-  }
-  function spawn() {
-    const a = Math.random() * Math.PI * 2, r = R * (0.75 + Math.random() * 0.2);
-    return { x: R + Math.cos(a) * r, y: R + Math.sin(a) * r, age: 0 };
-  }
-  let parts = Array.from({ length: 70 }, spawn);
-  function clear() { ctx.fillStyle = colors.bg; ctx.fillRect(0, 0, W, H); }
-  function step(fade) {
-    if (fade) { ctx.globalAlpha = 0.08; clear(); ctx.globalAlpha = 1; }
-    ctx.strokeStyle = colors.ink; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
-    for (const p of parts) {
-      const [vx, vy] = field(p.x, p.y);
-      ctx.globalAlpha = 0.55;
-      ctx.beginPath(); ctx.moveTo(p.x, p.y);
-      p.x += vx; p.y += vy; p.age++;
-      ctx.lineTo(p.x, p.y); ctx.stroke();
-      if (Math.hypot(vx, vy) < 0.25 || p.age > 400) Object.assign(p, spawn());
-    }
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = colors.ink;
-    for (const [x, y] of eq) { ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI * 2); ctx.fill(); }
-  }
-  function drawStatic() {
-    readColors(); clear();
-    parts = Array.from({ length: 70 }, spawn);
-    for (let i = 0; i < 160; i++) step(false);
-  }
-  drawStatic();
-  const mq = window.matchMedia('(prefers-color-scheme: dark)');
-  const redraw = () => drawStatic();
-  mq.addEventListener ? mq.addEventListener('change', redraw) : mq.addListener(redraw);
-  new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  if (!reduce) { (function loop() { step(true); requestAnimationFrame(loop); })(); }
-})();
-</script>
 
 </body>
 </html>
