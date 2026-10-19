@@ -1,0 +1,109 @@
+[
+ {
+  "n": 1,
+  "title": "Problem 1: The Galton Board",
+  "videos": []
+ },
+ {
+  "n": 2,
+  "title": "The Galton Board",
+  "videos": []
+ },
+ {
+  "n": 3,
+  "title": "The Galton Board: our three questions",
+  "videos": []
+ },
+ {
+  "n": 4,
+  "title": "The Galton Board: our three questions",
+  "videos": []
+ },
+ {
+  "n": 5,
+  "title": "The Galton Board: our three questions",
+  "videos": []
+ },
+ {
+  "n": 6,
+  "title": "1. Is the final distribution binomial? Experiment",
+  "videos": []
+ },
+ {
+  "n": 7,
+  "title": "1. Is the final distribution binomial? Model",
+  "videos": []
+ },
+ {
+  "n": 8,
+  "title": "1. Is the final distribution binomial? Model, experiments, simulation",
+  "videos": [
+   {
+    "src": "s08.mp4",
+    "x": 70.73,
+    "y": 56.81,
+    "w": 19.63,
+    "h": 34.54
+   }
+  ]
+ },
+ {
+  "n": 9,
+  "title": "2. What parameters matter? Physical parameters",
+  "videos": []
+ },
+ {
+  "n": 10,
+  "title": "2. What parameters matter? Vibrations",
+  "videos": [
+   {
+    "src": "s10.mp4",
+    "x": 71.28,
+    "y": 26.46,
+    "w": 26.12,
+    "h": 66.62
+   }
+  ]
+ },
+ {
+  "n": 11,
+  "title": "2. What parameters matter? Peg size, layout and shape",
+  "videos": [
+   {
+    "src": "s11.mp4",
+    "x": 6.08,
+    "y": 52.55,
+    "w": 30.36,
+    "h": 35.7
+   }
+  ]
+ },
+ {
+  "n": 12,
+  "title": "2. A board for any chosen distribution?",
+  "videos": []
+ },
+ {
+  "n": 13,
+  "title": "2. How to build a board for any chosen distribution",
+  "videos": [
+   {
+    "src": "s13.mp4",
+    "x": 47.92,
+    "y": 41.91,
+    "w": 45.21,
+    "h": 46.11
+   }
+  ]
+ },
+ {
+  "n": 14,
+  "title": "3. Non-Gaussian distributions with independent beads",
+  "videos": []
+ },
+ {
+  "n": 15,
+  "title": "Conclusion",
+  "videos": []
+ }
+]

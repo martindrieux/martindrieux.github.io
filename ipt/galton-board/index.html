@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Galton Board, IPT 2024</title>
+<meta name="description" content="How our team found why real beads spread wider than the textbook Galton board predicts, and how to build a board for any chosen distribution.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="../story.css">
+<style>figure img{height:auto}</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="../../">← Martin Drieux</a>
+  <h1>The Galton Board</h1>
+  <p class="meta">International Physicists' Tournament 2024 · Problem 1 · École Polytechnique team</p>
+  <p class="question"><span class="label">The question</span>Dropping beads on a board with evenly spaced pegs is said to give a binomial distribution. Can other distributions be produced by changing things like the size of the pegs, their layout or the shape of the beads? Can a distribution that does not obey the central limit theorem be reached when the beads are independent and identical? What happens when the board vibrates?</p>
+
+  <section>
+    <h2>Is the pile really binomial?</h2>
+    <p>A Galton board is a vertical board with rows of pegs and a row of bins at the bottom. A bead dropped at the top hits one peg per row. If each bounce were a fair coin flip, left or right, the beads would pile up in a binomial distribution, the bell shape seen in textbooks.</p>
+    <p>A simple test is the spread of the pile, measured by its variance (the average squared distance from the center, counted in bins). For a fair coin flip at each of n rows, the variance is n/4. On our wooden board it still grew in proportion to n, but <span class="key">3.37 ± 0.30</span> times faster. Our beads spread much more than coin flips would.</p>
+    <figure class="pair">
+      <div><img src="f06b.jpg" alt="Photo of our wooden Galton board: a triangle of round pegs above a row of bins filled with glass beads." width="465" height="569"><p class="cap">Our first board. Glass beads fall through a triangle of pegs into the bins.</p></div>
+      <div><img src="f06.jpg" alt="Plot of the measured variance V of the pile against the number of rows n, from 1 to 10 rows. The points lie on a straight line reaching about 7 at n = 10. Text on the plot: V(n) = alpha n/4, alpha greater than 1, alpha = 3.37 plus or minus 0.30." width="684" height="492"><p class="cap">Measured variance against the number of rows. A fair coin flip would give n/4. Ours is 3.37 times larger.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Beads keep their direction</h2>
+    <p>A bead that has just gone right tends to go right again at the next peg. A model from the literature (Mat Daud, 2014) captures this with one number, p, the probability that a bead keeps its direction at a peg. For a fair coin flip p = 0.5. A larger p multiplies the variance by p/(1 − p).</p>
+    <p>We estimated p in three ways on our board: from the variance (<span class="key">0.77 ± 0.15</span>), from how often a bead keeps its direction from one peg to the next (<span class="key">0.79 ± 0.20</span>), and from the longest run without a change of direction (<span class="key">0.77 ± 0.20</span>). A physics simulation of the board with up to 30 rows gave <span class="key">0.76 ± 0.10</span>.</p>
+    <figure><video autoplay muted loop playsinline poster="p08c.jpg"><source src="s08c.webm" type="video/webm"><source src="s08c.mp4" type="video/mp4"></video><figcaption>Our simulation of a Galton board, written in Python with the Pymunk physics engine (2× speed). Beads bounce through the pegs and pile up in the bins.</figcaption></figure>
+    <figure><img src="f07.jpg" alt="Five simulated histograms for p = 0.5, 0.7, 0.77, 0.8 and 0.85. The pile gets wider and flatter as p grows. An arrow marks our board between 0.7 and 0.8." width="1025" height="262"><figcaption>Simulated piles for growing p. At p = 0.5 the pile is the textbook bell. As p grows it gets wider and flatter. Our board lies between 0.7 and 0.8.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>What else changes the spread</h2>
+    <p>With experiments and simulations we checked which physical parameters matter. More rows, bouncier pegs and bigger beads widen the pile. More friction on the beads narrows it.</p>
+    <p>We also shook the board sideways at a chosen frequency. With small beads the spread grew with the frequency. With big beads it shrank.</p>
+    <figure class="pair">
+      <div><img src="f10.jpg" alt="Lab bench with an oscilloscope and a small Galton board mounted on a moving plate. A funnel above the board feeds the beads." width="466" height="404"><p class="cap">The shaking setup. The board, fed by a funnel, is shaken sideways at a chosen frequency.</p></div>
+      <div><img src="f09.jpg" alt="Table of parameters and how the variance V changes. Number of rows: V up. Slope of the board: V down for small slopes. Balls' elasticity: V up. Pegs' elasticity: V up. Balls' friction: V down. Balls' elasticity: V down. Balls' radius: V up." width="735" height="507"><p class="cap">How each parameter changes the variance V (arrow up: wider pile, arrow down: narrower pile), as listed in our slides.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>A board you can rearrange</h2>
+    <p>To test the shape and layout of the pegs, we built a modular board: a panel with a grid of holes, into which pegs of different shapes can be plugged. With hexagonal pegs laid out in a triangle, the board gave back the textbook variance n/4. Another layout, with triangular pegs, was designed to spread the beads evenly over all the bins (a uniform distribution).</p>
+    <figure><video autoplay muted loop playsinline poster="p11c.jpg"><source src="s11c.webm" type="video/webm"><source src="s11c.mp4" type="video/mp4"></video><figcaption>Pouring glass beads into the modular board, here with simple pegs (2× speed). The beads collect in the bins at the bottom.</figcaption></figure>
+    <figure><img src="f11.jpg" alt="Three photos of the modular board: with simple pegs, with a mix of pegs and colored triangles for a uniform distribution, and with white hexagonal pegs in a triangle for a binomial distribution." width="1435" height="375"><figcaption>Three layouts of the modular board: simple pegs, a layout for a uniform distribution, and hexagonal pegs for a binomial distribution.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Any distribution, with independent beads</h2>
+    <p>The central limit theorem says that adding up many independent random steps of similar size gives a bell curve. The question asked whether independent, identical beads can still pile up in another shape. They can.</p>
+    <p>We followed a construction by Proschan and Rosenthal (2010). Every peg still splits the beads 50/50. The pegs are placed at the points that cut the target curve into halves, then quarters, then eighths, and so on. We wrote a Python program where one draws any curve with the mouse and gets the matching board. Simulated boards gave normal (bell-shaped), log-normal and exponential piles. With the right parameters, a Galton board can serve as a physical generator of random numbers that follow any chosen distribution.</p>
+    <figure class="pair">
+      <div><img src="f13.jpg" alt="Sketch of a skewed target curve f over x, with a tree of pegs above it. The top peg sits at q(1/2), the next two at q(1/4) and q(3/4), the next four at q(1/8), q(3/8), q(5/8), q(7/8)." width="724" height="372"><p class="cap">The construction. The first peg sits at the point that splits the target curve in two halves, q(1/2), the next pegs at the quarter points, then the eighths.</p></div>
+      <div><video autoplay muted loop playsinline poster="p13.jpg"><source src="s13.webm" type="video/webm"><source src="s13.mp4" type="video/mp4"></video><p class="cap">Our program. A target curve is drawn with the mouse, and the program builds the board for it.</p></div>
+    </figure>
+    <figure><img src="f14.jpg" alt="Three simulated boards drawn as trees of triangles, each above a histogram of where the beads landed. Left: a symmetric tree and a bell-shaped histogram. Middle and right: lopsided trees with histograms that are high on the left and decay slowly to the right." width="1530" height="444"><figcaption>Simulated boards (top of each plot) and where the beads landed (histograms) for a normal, a log-normal and an exponential distribution. The blue lines are the target curves.</figcaption></figure>
+  </section>
+
+  <div class="results">
+    <h2>What we found</h2>
+    <ul>
+      <li>On our wooden board the pile is not binomial. Its variance was <span class="key">3.37 ± 0.30</span> times the coin-flip value n/4, for boards of 1 to 10 rows.</li>
+      <li>The reason is that a bead tends to keep its direction. It does so at a peg with probability about <span class="key">0.77</span>, not 0.5. Three measurements and a simulation agree.</li>
+      <li>More rows, bouncier pegs and bigger beads widen the pile, more friction narrows it. Shaking the board sideways widens it for small beads and narrows it for big ones.</li>
+      <li>Placing 50/50 pegs at the right points gives a board for any chosen distribution. We simulated normal, log-normal and exponential ones.</li>
+    </ul>
+  </div>
+
+  <a class="cta" href="slides.html">See all the slides →</a>
+  <footer>Team presentation at IPT 2024, where our team won the silver medal (2nd of 21 countries).</footer>
+</div>
+</body>
+</html>
