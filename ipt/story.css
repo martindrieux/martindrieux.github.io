@@ -1,0 +1,30 @@
+/* Shared style for IPT overview pages (ipt/<slug>/index.html). Light only, matches the homepage. */
+:root { --bg:#ffffff; --fg:#1a1a1a; --muted:#666b70; --rule:#e6e6e6; --accent:#1f5f8b; --tint:#f3f4f5;
+  --font-body:"Source Serif 4", Georgia, "Times New Roman", serif; --font-ui:"Source Sans 3", "Helvetica Neue", Arial, sans-serif; color-scheme: light; }
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:1.07rem;line-height:1.65;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+img,video{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.page{max-width:44rem;margin:0 auto;padding-block:clamp(1.5rem,4vw,3rem) 4rem}
+.back{font-family:var(--font-ui);font-size:.95rem}
+h1{font-weight:600;font-size:clamp(1.9rem,1.5rem+1.6vw,2.5rem);line-height:1.15;margin:.75rem 0 .3rem;text-wrap:balance}
+.meta{font-family:var(--font-ui);color:var(--muted);margin:0}
+.question{font-size:1.2rem;line-height:1.5;margin:1.5rem 0 0;padding:1rem 1.25rem;background:var(--tint);border-radius:6px}
+.question .label{display:block;font-family:var(--font-ui);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.25rem}
+section{margin-top:3rem}
+h2{font-weight:600;font-size:1.45rem;line-height:1.25;margin:0 0 .75rem;text-wrap:balance}
+section p{margin:0 0 1rem}
+figure{margin:1.25rem 0 0}
+figure video,figure img{width:100%;border-radius:6px;background:var(--tint)}
+figure.pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+figure.pair>div{min-width:0}
+figcaption,.cap{font-family:var(--font-ui);font-size:.9rem;color:var(--muted);margin-top:.45rem}
+.key{font-family:var(--font-ui);font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums}
+.results{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule)}
+.results ul{margin:0;padding-left:1.1rem;display:grid;gap:.4rem}
+.cta{display:inline-block;margin-top:2rem;font-family:var(--font-ui);font-weight:600;color:var(--bg);background:var(--accent);padding:.6rem 1.1rem;border-radius:5px}
+.cta:hover{text-decoration:none;filter:brightness(1.1)}
+footer{margin-top:3rem;font-family:var(--font-ui);font-size:.9rem;color:var(--muted)}
+@media (max-width:560px){figure.pair{grid-template-columns:1fr}}
