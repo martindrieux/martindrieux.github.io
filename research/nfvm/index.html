@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Neural finite volume solver</title>
+<meta name="description" content="How our neural finite volume method (NFVM) solves traffic-flow equations: a small neural network computes the flux between cells of a classical solver.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="../../ipt/story.css">
+<style>figure img{height:auto}.anim img{width:100%;height:auto;border-radius:6px}figure+p{margin-top:1.5rem}</style>
+<script src="anim.js" defer></script>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="../../">← Martin Drieux</a>
+  <h1>Neural finite volume solver</h1>
+  <p class="meta">Paper · BAIR, UC Berkeley · 2025–26 · co-first author, with A. M. Bayen et al.</p>
+  <p class="question"><span class="label">The question</span>Waves, fluid flows and road traffic are described by equations called conservation laws. Their solutions develop sudden jumps, like the back of a traffic jam, where classical solvers lose accuracy. We propose to learn only the flux of a classical finite volume solver, the flow between neighboring cells. The solver keeps its structure, so the solution stays conservative (nothing is created or lost), and it becomes more accurate than standard methods.</p>
+
+  <section>
+    <h2>Traffic as a conservation law</h2>
+    <p>Picture a highway seen from above. The density is the number of cars per unit length, from zero (an empty road) to a maximum (bumper to bumper). Cars are neither created nor destroyed, so the density at a point changes only when more cars arrive than leave. That is a conservation law.</p>
+    <p>To use it, we need the flow, the number of cars passing a point per unit time. Flow is density times speed, and drivers slow down as the road fills up. So the flow first rises with density, then falls as the road jams. Each traffic model has its own flow curve, and we test six of them.</p>
+    <p>When fast, light traffic runs into slow, dense traffic, the density does not change gradually. It jumps, and the jump (called a shock) travels along the road. The back of a traffic jam is a shock. At the front of a jam, cars leave one after another and the density spreads out smoothly (a rarefaction wave). These sharp jumps are what make the equations hard to solve on a computer.</p>
+    <figure><img src="f10.jpg" alt="Six small plots of flow against density, one per traffic model: a parabola, two triangles, a trapezoid, a skewed curve and a rising curve." width="1400" height="206"><figcaption>The six flow curves we test, one per traffic model (from an early project slide). Each gives the flow (vertical) for a given density (horizontal).</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Cells and fluxes</h2>
+    <p>A finite volume method cuts the road into equal cells and keeps one number per cell, the average density in that cell. Time moves forward in small steps. At each step, the method estimates the flux at every interface between two cells, that is, how many cars cross that boundary during the step. Each cell then gains what flows in through one interface and loses what flows out through the other.</p>
+    <p>What leaves one cell enters the next, so no car is lost or created. The hard part is the flux. It depends on the exact solution at the interface, which the method does not know, so it must be estimated from the cell averages nearby. Classical schemes use hand-designed formulas. Godunov's scheme, for example, solves the simple problem of a single jump between the two neighboring cells.</p>
+    <figure><img src="f19.jpg" alt="A grid of cells: position along the horizontal axis, two rows for two time steps, with red arrows labelled F at the interfaces between cells." width="1400" height="300"><figcaption>From a project slide. The road is cut into cells (horizontal), and each row is one time step. The red arrows are the fluxes at the interfaces. They turn the bottom row of averages into the next row.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>A neural network computes the flux</h2>
+    <p>Our neural finite volume method (NFVM) keeps this update and replaces only the flux formula. A small neural network reads the densities in the cells around an interface and outputs the flux there. The same network is used at every interface and every time step. In the simplest version it reads the two neighboring cells, like a classical first-order scheme, and has about 1,200 trained numbers (parameters). A larger version reads 4 cells over the last 5 time steps, with about 1,800 parameters.</p>
+    <figure>
+      <div class="anim" id="nfvm-anim" data-anim="nfvm" data-automount data-mode="full"><img src="poster-full.png" alt="Still frame: cars on a road, the density in each cell as bars, orange flux arrows at the interfaces, a small neural network box under two highlighted cells, and a density history below in which the back of the jam is a sharp edge." width="1408" height="904"></div>
+      <figcaption>Top: cars driving right. Middle: the density in each cell, with the flow between cells as orange arrows. Bottom: the density over time (darker is denser). The fluxes here are computed with a classical scheme (Godunov's) for illustration, not with our trained network.</figcaption>
+    </figure>
+    <p>We train the network in two ways. In the supervised version, it learns from examples whose exact solution is known: about 2,000 roads that start with a single jump in density (Riemann problems), whose solution can be written down exactly. In the unsupervised version (UNFVM), there are no solutions to copy. The network is trained so that its output satisfies the conservation law in its weak form, which checks the equation on average against many smooth weighting functions instead of point by point. This form still makes sense across jumps.</p>
+  </section>
+
+  <section>
+    <h2>What stays guaranteed</h2>
+    <p>Since the network only replaces the flux, the solver keeps its bookkeeping: what leaves one cell enters the next. After each step we also clip the densities so they stay between empty and jammed. The clip can break exact conservation, but only where the solver is already wrong, and in practice removing it barely changes the accuracy.</p>
+    <p>For the two-cell version, we prove that some network does at least as well as the classical Lax–Friedrichs scheme, up to a margin as small as we like. Lax–Friedrichs converges to the exact solution as the grid is refined. So on a fine enough grid, the best network brings the error as low as we want, and we bound how large that network must be. This holds for both training modes. It concerns the best possible network, which training must still find.</p>
+    <p>An equation with jumps can have several weak solutions, and only one is physical (the entropy solution). We added no rule to pick it. In our tests, the unsupervised network's error still shrank as the grid was refined, at the same rate as Godunov's scheme, which suggests it reaches the physical solution. The learned fluxes do not have a property (monotonicity) that classical convergence proofs rely on. We think this freedom is part of why they are more accurate.</p>
+  </section>
+
+  <section>
+    <h2>How accurate it is</h2>
+    <p>We compared against standard methods on 1,000 test roads that start with 10 stretches of different density, a harder setting than the single jumps used for training. On all six traffic models, both two-cell networks, supervised and unsupervised, had a lower average error than the three classical first-order schemes (Godunov, Lax–Friedrichs, Engquist–Osher). The supervised one also beat the higher-order schemes ENO and WENO on four of the six models.</p>
+    <figure><img src="fig1.jpg" alt="Twelve space-time color maps in two rows: the exact solution on top and the two-cell network below, for six traffic models. The two rows look nearly the same, with slightly softer edges below." width="1290" height="340"><figcaption>A test road for each of the six traffic models. Top: exact solution. Bottom: our two-cell network, with a separate network trained for each model. Horizontal: position. Vertical: time, running upward. Blue is an empty road, red a jam. From the paper (Figure 1).</figcaption></figure>
+    <p>The larger network, which reads 4 cells over 5 time steps, did much better. Its average squared error was <span class="key">7.6 to 8.9 times</span> lower than Godunov's scheme on the three equations where we tested it (two traffic models and Burgers' equation, a standard test case), and about 7 to 15 times lower than WENO. Only discontinuous Galerkin (DG), a more elaborate method, was more accurate, and our DG implementation is far slower.</p>
+    <figure><img src="fig9.jpg" alt="Line plot of a solution with several jumps: the exact solution in black, Godunov's scheme in green with rounded corners, and the network in red, which follows the black line closely." width="1140" height="390"><figcaption>Burgers' equation after 200 time steps. Black: exact solution. Green: Godunov's scheme. Red: our larger network. Godunov's scheme rounds off the jumps, while the network keeps them sharp. From the paper (Figure 9).</figcaption></figure>
+    <p>We also trained the larger network on real highway traffic filmed by drone (400 m of a four-lane highway, recorded for 15 minutes), using only 70 seconds of data. It was the only model that reproduced the fine structure of the traffic waves. On plain average error, the best fitted classical schemes still scored better, because they predict smoother waves. On a measure that compares the timing of the waves, the network did better.</p>
+  </section>
+
+  <div class="results">
+    <h2>What we found</h2>
+    <ul>
+      <li>Learning only the flux of a finite volume solver keeps the solver's structure, so the solution stays conservative: what leaves one cell enters the next.</li>
+      <li>With two cells as input (about 1,200 parameters), the network had a lower average error than three classical first-order schemes on all six traffic models.</li>
+      <li>With 4 cells over 5 time steps as input, its average squared error was <span class="key">7.6 to 8.9 times</span> lower than Godunov's scheme on the three equations tested.</li>
+      <li>Trained only on whether its output satisfies the equation, with no solved examples, the network still beat the first-order schemes and appears to reach the physical solution.</li>
+      <li>We prove that, on a fine enough grid, some network brings the error as low as we want, and we bound how large it must be.</li>
+      <li>One training run takes 5 to 10 minutes on a single GPU to reach 90% of its final accuracy.</li>
+    </ul>
+  </div>
+
+  <a class="cta" href="https://arxiv.org/abs/2601.06388">Read the paper on arXiv →</a>
+  <footer>Z. Baba, A. M. Bayen, A. Canesse, M. L. Delle Monache, M. Drieux, Z. Fu, N. Lichtlé, Z. Liu, H. N. Zinat Matin, B. Piccoli. <i>Supervised and Unsupervised Neural Network Solver for First Order Hyperbolic Nonlinear PDEs</i>, arXiv:2601.06388, January 2026. Martin is a co-first author.</footer>
+</div>
+</body>
+</html>
