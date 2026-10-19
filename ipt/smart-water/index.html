@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Water, IPT 2024</title>
+<meta name="description" content="How our team used soap films between two plates to find the shortest network joining a set of points, an NP-hard problem.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="../story.css">
+<style>figure img{height:auto}</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="../../">← Martin Drieux</a>
+  <h1>Smart Water</h1>
+  <p class="meta">International Physicists' Tournament 2024 · Problem 7 · École Polytechnique team</p>
+  <p class="question"><span class="label">The question</span>If you let water flow in a maze, you end up with a physical maze-solving algorithm. Many other algorithms and computations can be done with physical systems. Create a water-based computer (without electronics) that solves an NP-hard problem.</p>
+
+  <section>
+    <h2>A problem that is hard for computers</h2>
+    <p>Take a few cities and ask for the shortest road network that connects them all. You may add extra junctions anywhere you like. These junctions are called Steiner points, and the question is the Steiner tree problem.</p>
+    <p>It is NP-hard. This means it is at least as hard as every problem whose answers can be checked quickly. A maze is much easier. A computer solves it in a number of steps that grows only like a power of the maze's size. For the Steiner tree, the best algorithm we found (Fomin et al.) needs about 7.29<sup>n</sup> operations for n cities, so each extra city multiplies the work by more than 7.</p>
+    <figure><img src="f05.jpg" alt="Map of northern Germany with four cities, Harburg, Bremen, Hannover and Braunschweig, joined by straight black lines. Three of the lines meet at an extra point between the cities, labelled Steiner point." width="596" height="604" style="max-width:24rem"><figcaption>Four cities in northern Germany joined by the shortest network. One extra junction, a Steiner point, sits between Harburg, Bremen and Hannover.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Soap films find short networks</h2>
+    <p>Our computer uses soap films, thin sheets of soapy water. A soap film pulls itself in to make its area as small as possible, because its energy is its surface tension times its area.</p>
+    <p>We hold the film between two parallel plexiglass plates, with one peg between the plates for each city. The film stands upright between the plates, so its area is the gap between the plates times its length. The smallest area is therefore the shortest network. Where films meet, they meet three at a time at 120° angles, the same rule that shortest networks obey.</p>
+    <figure><img src="f13.jpg" alt="Two top-view photos of four pegs between plates. On the left, a thin soap film joins the pegs through two junctions, like a stretched letter H. On the right, the same photo with black lines drawn over it, matching the film." width="1045" height="418"><figcaption>Four pegs. Left, the soap film. Right, the shortest network computed in Python, drawn over the photo. Their lengths differ by 1.6%.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Close to the shortest, but not always</h2>
+    <p>We compared the length of the film with the exact shortest length from our simulation, with 2 to 9 pegs and 10 runs for each number. The average gap grows with the number of pegs. It is under 1% with 3 pegs and about 5% with 9. We attribute it to friction of the film on the plexiglass, on the pegs and in the air.</p>
+    <p>A film can also get stuck in a longer arrangement. This is a local minimum of its energy, like a ball resting in a small dip instead of the deepest valley. Disturbing the film, for example by shaking the plates, can free it. The shortest arrangement is the most likely outcome, so the computer gives the right answer most of the time rather than every time.</p>
+    <figure class="pair">
+      <div><img src="f18.jpg" alt="Plot of the error in percent, on a logarithmic scale, against the number of pegs n from 2 to 9. The error rises from about 0.14% at n equals 2 to about 5% at n equals 9." width="804" height="630"><p class="cap">Average gap between the film's length and the shortest length, against the number of pegs n. Log scale, 10 runs per point.</p></div>
+      <div><video autoplay muted loop playsinline poster="p15.jpg"><source src="s15.webm" type="video/webm"><source src="s15.mp4" type="video/mp4"></video><p class="cap">Five pegs. The film leaves a longer arrangement and settles into a shorter one with three-way junctions.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Fast to settle, slow to burst</h2>
+    <p>A useful computer must settle quickly and last long enough to be read. To measure the settling time, we tilted the top plate back and forth. The film switched between a straight line and a curve. Each time, the distance left to its new shape shrank by a factor of about 2.7 every <span class="key">2.77&nbsp;±&nbsp;0.16&nbsp;s</span>. This time is called the relaxation time.</p>
+    <p>A wider gap between the plates makes the film settle faster, but it also makes it burst sooner. We used the soap concentration beyond which more soap no longer lowers the surface tension (the critical micelle concentration), and a gap of 5 mm. With these choices the film settles in under <span class="key">3.5&nbsp;s</span> and lasts more than <span class="key">2&nbsp;minutes</span>.</p>
+    <figure><video autoplay muted loop playsinline poster="p22.jpg"><source src="s22.webm" type="video/webm"><source src="s22.mp4" type="video/mp4"></video><figcaption>A film between two pegs, A and B, seen from above. Tilting the top plate switches it between a straight line and a curve. The red marks track its middle point.</figcaption></figure>
+    <figure><img src="f27.jpg" alt="Two plots. Left, relaxation time tau in seconds against gap h in meters, falling from about 3.4 s at 5 mm to about 1.3 s at 15 mm. Right, film lifetime in seconds against h in millimeters, falling steeply from about 3300 s at 5 mm to under 100 s at 40 mm." width="1266" height="415"><figcaption>Left, relaxation time against the gap h (in m). Right, lifetime of the film against h (in mm). Both fall as the gap widens. 10 runs per point.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Thirteen French cities, and more</h2>
+    <p>We placed pegs at the 13 largest French cities. For 13 cities, the best algorithm we found needs about 1.6 × 10<sup>11</sup> operations, about 3 minutes for a 1 GHz processor (a billion operations per second). The film settles in under 3.5 s.</p>
+    <p>The same setup can take more into account. Round zones that the film cannot cross act as lakes. Changing the gap between the plates from place to place gives each place a cost, and the film then bends like light entering glass (Snell's law). On a plate shaped like the Swiss Alps, with pegs at Sion, Andermatt and Zermatt, the film's junction fell near the small town of Viège (Visp). For distant cities such as Vancouver, Cairo and Sydney the Earth's curvature matters, which calls for a spherical setup. Since a maze is an easier problem, the films also solve mazes, and find the shortest way through.</p>
+    <figure style="max-width:30rem"><video autoplay muted loop playsinline poster="p28.jpg"><source src="s28.webm" type="video/webm"><source src="s28.mp4" type="video/mp4"></video><figcaption>A map of France between the plates, with pegs at the 13 largest cities joined by soap films.</figcaption></figure>
+    <figure class="pair">
+      <div><img src="f32.jpg" alt="Dark relief plate shaped like the Swiss Alps, with pegs labelled Sion, Andermatt and Zermatt. A thin film joins them through one junction, marked with a white dot labelled Viège." width="592" height="522"><p class="cap">Pegs at Sion, Andermatt and Zermatt on a plate shaped like the Swiss Alps. The junction (white dot) falls near Viège.</p></div>
+      <div><img src="f35.jpg" alt="A maze with dark walls. A thin soap film runs from a peg at the top to a peg at the bottom, winding through the corridors." width="385" height="614" style="max-width:15rem"><p class="cap">A film between two pegs in a maze follows the shortest path through it.</p></div>
+    </figure>
+  </section>
+
+  <div class="results">
+    <h2>What we found</h2>
+    <ul>
+      <li>A soap film between two plates shrinks to the shortest network joining the pegs. This solves the Steiner tree problem, which is NP-hard.</li>
+      <li>Averaged over 10 runs, the film's length was within <span class="key">1%</span> of the shortest with 3 pegs, and about <span class="key">5%</span> with 9 pegs.</li>
+      <li>The film can get stuck in a longer arrangement, but the shortest one comes out most often.</li>
+      <li>With a 5 mm gap and the right soap concentration, the film settles in under <span class="key">3.5&nbsp;s</span> and lasts more than <span class="key">2&nbsp;minutes</span>.</li>
+      <li>For the 13 largest French cities, the best algorithm we found would need about <span class="key">3&nbsp;minutes</span> at 1 GHz.</li>
+      <li>Lakes, terrain costs, a curved Earth and mazes can all be built into the setup.</li>
+    </ul>
+  </div>
+
+  <a class="cta" href="slides.html">See all the slides →</a>
+  <footer>Team presentation at IPT 2024, where our team won the silver medal (2nd of 21 countries).</footer>
+</div>
+</body>
+</html>

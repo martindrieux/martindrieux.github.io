@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Smart Water slides, IPT 2024</title>
+<meta name="description" content="Smart Water: Martin Drieux&#x27;s team presentation at the International Physicists&#x27; Tournament 2024.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+img{max-width:100%}
+
+/* Layout: same plain white column as the homepage, widened for a 16:9 slide stage with a thumbnail strip below. */
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #666b70;
+  --rule: #e6e6e6;
+  --accent: #1f5f8b;
+  --stage: #f3f4f5;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-ui: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.page { max-width: 64rem; margin: 0 auto; padding-block: clamp(1.5rem, 4vw, 3rem) 3rem; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.back { font-family: var(--font-ui); font-size: 0.95rem; }
+h1 { font-weight: 600; font-size: 1.9rem; line-height: 1.2; margin: 0.75rem 0 0.25rem; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0; }
+.intro { max-width: 42rem; margin: 1rem 0 1.5rem; }
+.intro p { margin: 0 0 0.75rem; }
+blockquote { margin: 0; padding: 0 0 0 1rem; border-left: 2px solid var(--rule); color: var(--muted); font-style: italic; }
+
+.viewer { display: grid; gap: 0.75rem; }
+.stage { position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; background: var(--stage);
+  border: 1px solid var(--rule); overflow: hidden; touch-action: pan-y; }
+.stage img.slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+.stage video { position: absolute; object-fit: fill; background: transparent; cursor: pointer; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; font-family: var(--font-ui); }
+.bar button { font: inherit; font-size: 0.95rem; color: var(--fg); background: var(--bg); border: 1px solid var(--rule);
+  border-radius: 4px; padding: 0.3rem 0.8rem; cursor: pointer; }
+.bar button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.bar button:disabled { color: var(--muted); cursor: default; opacity: 0.5; }
+.count { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.95rem; }
+.title { font-weight: 600; flex: 1 1 12rem; min-width: 0; }
+.hint { color: var(--muted); font-size: 0.85rem; }
+.strip { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x proximity; }
+.thumb { flex: 0 0 auto; width: 8.5rem; padding: 0; border: 2px solid transparent; border-radius: 3px; background: none; cursor: pointer;
+  scroll-snap-align: start; position: relative; }
+.thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--rule); }
+.thumb[aria-current="true"] { border-color: var(--accent); }
+.thumb .n { position: absolute; left: 4px; bottom: 4px; font-family: var(--font-ui); font-size: 0.7rem; background: var(--bg);
+  color: var(--fg); padding: 0 4px; border-radius: 2px; }
+.thumb .vid { position: absolute; right: 4px; bottom: 4px; font-family: var(--font-ui); font-size: 0.7rem; background: var(--accent);
+  color: var(--bg); padding: 0 4px; border-radius: 2px; }
+.divider { flex: 0 0 auto; align-self: center; font-family: var(--font-ui); font-size: 0.75rem; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--muted); writing-mode: vertical-rl; transform: rotate(180deg); padding: 0 0.25rem; }
+footer { margin-top: 2.5rem; color: var(--muted); font-family: var(--font-ui); font-size: 0.9rem; }
+@media (max-width: 560px) { .hint { display: none; } .thumb { width: 6.5rem; } }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <a class="back" href="./">← Smart Water: overview</a>
+  <h1>Smart Water: slides</h1>
+  <p class="sub">International Physicists&#x27; Tournament 2024 · Problem 7</p>
+  <div class="intro"><p>The slides our team presented at the tournament. Arrow keys or swipe to move; videos play in place.</p></div>
+
+  <div class="viewer">
+    <div class="stage" id="stage" aria-live="polite">
+      <img class="slide" id="slideImg" alt="">
+    </div>
+    <div class="bar">
+      <button id="prev" type="button" aria-label="Previous slide">← Prev</button>
+      <button id="next" type="button" aria-label="Next slide">Next →</button>
+      <span class="count" id="count"></span>
+      <span class="title" id="title"></span>
+      <span class="hint">Arrow keys or swipe to move. Click a video to pause it.</span>
+    </div>
+    <div class="strip" id="strip" aria-label="All slides"></div>
+  </div>
+
+  <footer>Slides 37–56 are backup slides.</footer>
+</div>
+
+<script>
+const SLIDES = [{"n": 1, "title": "Problem 7: Smart Water", "videos": []}, {"n": 2, "title": "Smart Water", "videos": []}, {"n": 3, "title": "What is an NP-hard problem?", "videos": []}, {"n": 4, "title": "What is an NP-hard problem?", "videos": []}, {"n": 5, "title": "The geometrical minimal Steiner tree problem", "videos": []}, {"n": 6, "title": "The Steiner tree for three points", "videos": []}, {"n": 7, "title": "A true water-based computer", "videos": []}, {"n": 8, "title": "The Lagrangian of a soap film", "videos": []}, {"n": 9, "title": "Example of a minimal soap film", "videos": []}, {"n": 10, "title": "Example of a minimal soap film", "videos": []}, {"n": 11, "title": "Steiner tree: n = 3", "videos": []}, {"n": 12, "title": "Steiner tree: n = 3", "videos": []}, {"n": 13, "title": "Steiner tree: n = 4", "videos": []}, {"n": 14, "title": "Steiner tree: n = 5", "videos": []}, {"n": 15, "title": "Local/global minimum", "videos": [{"src": "s15.mp4", "x": 59.0, "y": 22.35, "w": 37.11, "h": 67.63}, {"src": "s15b.mp4", "x": 11.38, "y": 32.84, "w": 25.61, "h": 60.22}]}, {"n": 16, "title": "Steiner tree: n = 6", "videos": []}, {"n": 17, "title": "Local/global minimum", "videos": [{"src": "s17.mp4", "x": 58.67, "y": 21.9, "w": 33.95, "h": 60.23}]}, {"n": 18, "title": "Steiner tree: average truth rate", "videos": []}, {"n": 19, "title": "What other parameters?", "videos": []}, {"n": 20, "title": "Surface tension and soap concentration", "videos": []}, {"n": 21, "title": "Soap film dynamics", "videos": []}, {"n": 22, "title": "Soap film dynamics", "videos": [{"src": "s22.mp4", "x": 7.61, "y": 18.39, "w": 84.77, "h": 40.45}]}, {"n": 23, "title": "What dynamics?", "videos": [{"src": "s22.mp4", "x": 7.61, "y": 18.39, "w": 84.77, "h": 40.45}]}, {"n": 24, "title": "Soap film dynamics", "videos": []}, {"n": 25, "title": "Measure of the relaxation time τ", "videos": []}, {"n": 26, "title": "Lifetime of the soap film", "videos": []}, {"n": 27, "title": "Compromise for h", "videos": []}, {"n": 28, "title": "An efficient NP-hard water computer", "videos": [{"src": "s28.mp4", "x": 55.02, "y": 24.65, "w": 38.98, "h": 66.12}]}, {"n": 29, "title": "Achievements: lakes as prohibited areas", "videos": []}, {"n": 30, "title": "Achievements: adding a local cost", "videos": []}, {"n": 31, "title": "Achievements: a local cost (general)", "videos": []}, {"n": 32, "title": "Achievements: a local cost (general)", "videos": []}, {"n": 33, "title": "Achievements: Earth's curvature", "videos": []}, {"n": 34, "title": "Achievements: solving P problems", "videos": []}, {"n": 35, "title": "Achievements: solving P problems", "videos": []}, {"n": 36, "title": "Conclusion: our contribution to Steiner trees", "videos": []}, {"n": 37, "title": "Annexes", "videos": []}, {"n": 38, "title": "Vibration solving the Steiner tree problem", "videos": [{"src": "s38.mp4", "x": 36.6, "y": 11.48, "w": 26.79, "h": 84.68}]}, {"n": 39, "title": "Probability of finding minima", "videos": []}, {"n": 40, "title": "Two global minima", "videos": [{"src": "s40c.mp4", "x": 72.24, "y": 37.54, "w": 21.29, "h": 39.84}, {"src": "s40.mp4", "x": 13.12, "y": 35.82, "w": 28.22, "h": 52.23}, {"src": "s40b.mp4", "x": 52.48, "y": 37.67, "w": 18.82, "h": 39.84}]}, {"n": 41, "title": "2 global minima", "videos": [{"src": "s40c.mp4", "x": 72.24, "y": 37.54, "w": 21.29, "h": 39.84}, {"src": "s40b.mp4", "x": 52.48, "y": 37.67, "w": 18.82, "h": 39.84}]}, {"n": 42, "title": "n = 3, angle of 120°", "videos": [{"src": "s42b.mp4", "x": 55.1, "y": 40.09, "w": 36.02, "h": 44.11}, {"src": "s42.mp4", "x": 11.53, "y": 40.09, "w": 35.22, "h": 44.06}]}, {"n": 43, "title": "Equation of motion", "videos": []}, {"n": 44, "title": "Equation of motion", "videos": []}, {"n": 45, "title": "Theoretical time of convergence", "videos": []}, {"n": 46, "title": "Theoretical time of convergence", "videos": []}, {"n": 47, "title": "Measuring film thickness", "videos": []}, {"n": 48, "title": "Equiprobability experiment", "videos": []}, {"n": 49, "title": "Life expectancy of a soap film", "videos": []}, {"n": 50, "title": "Life expectancy of a soap film", "videos": []}, {"n": 51, "title": "Viscous friction", "videos": []}, {"n": 52, "title": "Soap film profile", "videos": []}, {"n": 53, "title": "Dependence of τ on h", "videos": []}, {"n": 54, "title": "Energy of three-point networks", "videos": []}, {"n": 55, "title": "Two global minima", "videos": [{"src": "s55.mp4", "x": 29.27, "y": 5.82, "w": 41.46, "h": 88.36}]}, {"n": 56, "title": "Energy against l", "videos": []}];
+(() => {
+  const pad = n => String(n).padStart(2, '0');
+  const stage = document.getElementById('stage');
+  const img = document.getElementById('slideImg');
+  const strip = document.getElementById('strip');
+  const prev = document.getElementById('prev'), next = document.getElementById('next');
+  const count = document.getElementById('count'), title = document.getElementById('title');
+  let i = 0;
+
+  // Thumbnails
+  SLIDES.forEach((s, k) => {
+    if (s.n === 37) { const d = document.createElement('span'); d.className = 'divider'; d.textContent = 'Appendix'; strip.appendChild(d); }
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'thumb'; b.setAttribute('aria-label', `Slide ${s.n}${s.title ? ': ' + s.title : ''}`);
+    b.innerHTML = `<img loading="lazy" src="${pad(s.n)}.jpg" alt=""><span class="n">${s.n}</span>` + (s.videos.length ? '<span class="vid">video</span>' : '');
+    b.addEventListener('click', () => show(k));
+    strip.appendChild(b);
+  });
+  const thumbs = [...strip.querySelectorAll('.thumb')];
+
+  function show(k, fromHash) {
+    i = Math.max(0, Math.min(SLIDES.length - 1, k));
+    const s = SLIDES[i];
+    img.src = `${pad(s.n)}.jpg`;
+    img.alt = `Slide ${s.n}${s.title ? ': ' + s.title : ''}`;
+    stage.querySelectorAll('video').forEach(v => v.remove());
+    s.videos.forEach(v => {
+      const el = document.createElement('video');
+      Object.assign(el, { muted: true, loop: true, playsInline: true, autoplay: true });
+      ['webm', 'mp4'].forEach(ext => { const so = document.createElement('source'); so.src = v.src.replace(/\.mp4$/, '.' + ext); so.type = 'video/' + ext; el.appendChild(so); });
+      el.setAttribute('muted', ''); el.setAttribute('playsinline', '');
+      el.style.left = v.x + '%'; el.style.top = v.y + '%'; el.style.width = v.w + '%'; el.style.height = v.h + '%';
+      el.title = 'Click to pause or play';
+      el.addEventListener('click', () => el.paused ? el.play() : el.pause());
+      stage.appendChild(el);
+      el.play().catch(() => {});
+    });
+    count.textContent = `${s.n} / ${SLIDES.length}`;
+    title.textContent = s.n >= 37 ? `Appendix${s.title && s.title !== 'Appendix' ? ': ' + s.title : ''}` : s.title;
+    prev.disabled = i === 0; next.disabled = i === SLIDES.length - 1;
+    thumbs.forEach((t, k2) => t.setAttribute('aria-current', k2 === i ? 'true' : 'false'));
+    thumbs[i].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    if (!fromHash) history.replaceState(null, '', '#' + s.n);
+    [i - 1, i + 1].forEach(j => { if (SLIDES[j]) { const p = new Image(); p.src = `${pad(SLIDES[j].n)}.jpg`; } });
+  }
+
+  prev.addEventListener('click', () => show(i - 1));
+  next.addEventListener('click', () => show(i + 1));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+  });
+  let x0 = null;
+  stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', e => {
+    if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+  });
+
+  const fromHash = parseInt(location.hash.slice(1), 10);
+  const start = SLIDES.findIndex(s => s.n === fromHash);
+  show(start >= 0 ? start : 0, true);
+})();
+</script>
+
+</body>
+</html>
