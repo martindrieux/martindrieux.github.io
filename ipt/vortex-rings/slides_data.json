@@ -1,0 +1,259 @@
+[
+{
+"n": 1,
+"title": "Problem 12: Pool Vortex Rings",
+"videos": []
+},
+{
+"n": 2,
+"title": "Pool Vortex Rings",
+"videos": []
+},
+{
+"n": 3,
+"title": "Setup",
+"videos": []
+},
+{
+"n": 4,
+"title": "Setup",
+"videos": [
+{
+"src": "s04b.mp4",
+"x": 30.61,
+"y": 32.09,
+"w": 34.4,
+"h": 34.44
+},
+{
+"src": "s04.mp4",
+"x": 11.73,
+"y": 26.26,
+"w": 12.65,
+"h": 57.13
+}
+]
+},
+{
+"n": 5,
+"title": "The vortex",
+"videos": []
+},
+{
+"n": 6,
+"title": "System scaling",
+"videos": []
+},
+{
+"n": 7,
+"title": "System scaling",
+"videos": []
+},
+{
+"n": 8,
+"title": "Vortex dynamics",
+"videos": [
+{
+"src": "s08.mp4",
+"x": 6.37,
+"y": 27.46,
+"w": 56.94,
+"h": 50.61
+}
+]
+},
+{
+"n": 9,
+"title": "Vortex dynamics: relevant parameters",
+"videos": []
+},
+{
+"n": 10,
+"title": "Vortex dynamics: overall speed",
+"videos": []
+},
+{
+"n": 11,
+"title": "Vortex dynamics: overall speed",
+"videos": []
+},
+{
+"n": 12,
+"title": "Vortex dynamics: ring diameter",
+"videos": []
+},
+{
+"n": 13,
+"title": "Vortex dynamics: ring diameter",
+"videos": []
+},
+{
+"n": 14,
+"title": "Vortex dynamics: ring diameter",
+"videos": []
+},
+{
+"n": 15,
+"title": "Vortex dynamics: temporal evolution",
+"videos": []
+},
+{
+"n": 16,
+"title": "Vortex dynamics: temporal evolution",
+"videos": []
+},
+{
+"n": 17,
+"title": "Vortex dynamics: free surface",
+"videos": []
+},
+{
+"n": 18,
+"title": "The shadow",
+"videos": []
+},
+{
+"n": 19,
+"title": "The shadow: link to free surface",
+"videos": []
+},
+{
+"n": 20,
+"title": "The shadow: link to free surface",
+"videos": []
+},
+{
+"n": 21,
+"title": "The shadow: link to free surface",
+"videos": []
+},
+{
+"n": 22,
+"title": "Shadowgraphy simulation",
+"videos": []
+},
+{
+"n": 23,
+"title": "Disappearance of the shadow",
+"videos": []
+},
+{
+"n": 24,
+"title": "Lifetime prediction",
+"videos": [
+{
+"src": "s24.mp4",
+"x": 2.35,
+"y": 38.24,
+"w": 22.68,
+"h": 23.8
+}
+]
+},
+{
+"n": 25,
+"title": "Lifetime prediction",
+"videos": [
+{
+"src": "s24.mp4",
+"x": 2.35,
+"y": 38.24,
+"w": 22.68,
+"h": 23.8
+}
+]
+},
+{
+"n": 26,
+"title": "Lifetime prediction",
+"videos": [
+{
+"src": "s24.mp4",
+"x": 2.35,
+"y": 38.24,
+"w": 22.68,
+"h": 23.8
+}
+]
+},
+{
+"n": 27,
+"title": "Lifetime prediction",
+"videos": [
+{
+"src": "s24.mp4",
+"x": 2.35,
+"y": 38.24,
+"w": 22.68,
+"h": 23.8
+}
+]
+},
+{
+"n": 28,
+"title": "Lifetime prediction",
+"videos": [
+{
+"src": "s24.mp4",
+"x": 2.35,
+"y": 38.24,
+"w": 22.68,
+"h": 23.8
+}
+]
+},
+{
+"n": 29,
+"title": "Conclusion",
+"videos": []
+},
+{
+"n": 30,
+"title": "Annex",
+"videos": []
+},
+{
+"n": 31,
+"title": "Predicting lifetime: confirmation",
+"videos": [
+{
+"src": "s08.mp4",
+"x": 4.37,
+"y": 20.32,
+"w": 24.98,
+"h": 22.21
+}
+]
+},
+{
+"n": 32,
+"title": "Predicting lifetime: let's try!",
+"videos": [
+{
+"src": "s24.mp4",
+"x": 7.05,
+"y": 40.89,
+"w": 35.08,
+"h": 32.46
+}
+]
+},
+{
+"n": 33,
+"title": "Python code for simulation",
+"videos": []
+},
+{
+"n": 34,
+"title": "Pepper",
+"videos": [
+{
+"src": "s34.mp4",
+"x": 6.85,
+"y": 25.53,
+"w": 40.24,
+"h": 60.33
+}
+]
+}
+]

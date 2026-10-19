@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pool Vortex Rings, IPT 2024</title>
+<meta name="description" content="How our team explained the two shadows left by a plate dragged through a pool, and predicted how long they last.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="../story.css">
+<style>figure img{height:auto}</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="../../">← Martin Drieux</a>
+  <h1>Pool Vortex Rings</h1>
+  <p class="meta">International Physicists' Tournament 2024 · Problem 12 · École Polytechnique team</p>
+  <p class="question"><span class="label">The question</span>A plate dragged through the surface of still water can produce two black circles on the bottom of the pool. They are the shadows of vortices at the surface. By analyzing a short video of the shadows at some moment, can you predict how long the vortices will last?</p>
+
+  <section>
+    <h2>Two dimples, two shadows</h2>
+    <p>Pushing a half-submerged plate through the water leaves behind half of a vortex ring. This is a ring of spinning water, cut in half by the surface. Its two ends meet the surface, and each end is a small whirlpool that dents the surface into a dimple. Light from above passes through the dimples and leaves two dark spots on the floor.</p>
+    <p>We made these rings in a 1 m³ tank, lit from above by a lamp and a mirror. To build a small copy of a pool, we kept the Froude number (the flow's inertia compared with gravity) equal to that of a pool video, about 0.25. A plate of radius 15 cm moving at 60 cm/s in the pool becomes a plate of radius 1 cm moving at 15 cm/s in the tank. Surface tension only matters for details smaller than about 3 mm, so we could ignore it.</p>
+    <figure><video autoplay muted loop playsinline poster="p04c.jpg"><source src="s04c.webm" type="video/webm"><source src="s04c.mp4" type="video/mp4"></video><figcaption>Top view of our tank, played at 2× speed. The plate passes on the right and leaves a pair of shadows that travel away from it.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>How the ring travels and slowly spreads</h2>
+    <p>We tracked the shadows frame by frame. After about 2.6 s the ring moves at a constant speed. After about 3 s its diameter also stops changing, at about 1.15 times the diameter of the plate.</p>
+    <p>How strongly the water spins around each whirlpool is called the circulation. A published relation gives it from the ring's speed and diameter, two things we can read off a video. The spin itself is kept, but viscosity (the water's internal friction) slowly widens the spinning core of each whirlpool. A wider core makes a shallower dimple.</p>
+    <figure class="pair">
+      <div><img src="f05.jpg" alt="Side view sketch of a half vortex ring under the surface. Arrows show the water turning around the ring. The surface dips above each end of the ring, and two shadows sit on the floor below, a depth Z under the surface." width="590" height="730"><p class="cap">The half ring seen from the side. Each end dents the surface, and each dent casts a shadow on the floor.</p></div>
+      <div><video autoplay muted loop playsinline poster="p08c.jpg"><source src="s08c.webm" type="video/webm"><source src="s08c.mp4" type="video/mp4"></video><p class="cap">Top view of our tank at 2× speed. The two shadows of one ring shrink and vanish.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>How a dimple casts a shadow</h2>
+    <p>Inside a dimple the water surface is tilted, so light crossing it is bent (refraction). Around a whirlpool the rays are bent away from the center, and the floor right below receives no light. The bent rays pile up along a curve called a caustic, which makes a bright rim. The edge of the shadow is where this caustic meets the floor.</p>
+    <p>With a formula from the literature, the circulation and the core size give the shape of the dimple. Following the light rays through it then gives the size of the shadow. This assumes a gently curved surface, which holds in our case, and light coming straight down. In our setup the light was tilted by about 10°.</p>
+    <figure class="pair">
+      <div><img src="f18.jpg" alt="Side photo of the tank with red lines drawn as light rays. They cross the dimpled free surface at the top and spread apart, leaving a shadow on the floor." width="765" height="680"><p class="cap">Side view. Rays (red) crossing the dimple are bent apart, leaving a shadow on the floor.</p></div>
+      <div><img src="f21.jpg" alt="Diagram of rays crossing a dimple of width D. The bent rays cross along a green curve labelled caustic curve, which reaches the floor at the edge of the shadow." width="800" height="580"><p class="cap">The bent rays crowd together along the caustic (green). Where it meets the floor sets the shadow's edge.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>A vortex with no shadow</h2>
+    <p>We simulated this for a pool. As the core widens, the shadow first shrinks slowly. Then, at a certain core size, it disappears all at once.</p>
+    <p>We checked this in a stirred beaker. Slowing the stirring made the shadow smaller, and at 350 rpm it vanished, while the dip in the surface was still about 9 mm deep (estimated from the stirring speed). A vortex can exist without a shadow. What a video lets us predict is the moment the shadow disappears.</p>
+    <figure class="pair">
+      <div><img src="f22.jpg" alt="Simulated shadow radius against core size D, for a 1.75 m deep pool. The radius decreases slowly from about 8 cm, then drops straight to zero." width="770" height="645"><p class="cap">Simulation for a 1.75 m deep pool. Shadow radius against core size. It drops to zero in one step.</p></div>
+      <div><img src="f23.jpg" alt="Left, a glass beaker of water lit in green on a stirrer, with a shadow ring below. Right, shadow radius in cm against stirring speed in rpm, rising from about 1.15 cm at 350 rpm to 1.75 cm at 1000 rpm." width="935" height="475"><p class="cap">The stirred beaker. Faster stirring gives a bigger shadow. Below 350 rpm there is none.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Predicting the lifetime</h2>
+    <p>We tried this on a pool video from the YouTube channel Physics Girl ("Crazy pool vortex"). The clip lasts about 6 s, much less than the expected lifetime, so the shadow size barely changes and we used its average. In the video the ring moves at 10.3 cm/s, it is 33.4 cm across, the shadows have a radius of 7.7 cm, and the pool is 1.75 m deep.</p>
+    <p>Speed and diameter give the circulation. The simulation then finds the core size that makes a 7.7 cm shadow, about 4.5 cm. Letting viscosity widen the core, the shadow vanishes after <span class="key">670 ± 80 s</span>, about 11 minutes. In our tank the same method predicted <span class="key">14 ± 4 s</span>, and we measured <span class="key">11 ± 1 s</span>.</p>
+    <figure><img src="f28.jpg" alt="Predicted shadow radius against time for the pool video. It falls slowly from about 7.8 cm to 6.3 cm, then drops near 700 s. A box lists the measured values and the result, t vanish equals 670 plus or minus 80 s." width="1180" height="458"><figcaption>Predicted shadow radius over time for the pool video, with the values measured in the video. The shadow vanishes after about 670 s.</figcaption></figure>
+  </section>
+
+  <div class="results">
+    <h2>What we found</h2>
+    <ul>
+      <li>The two shadows come from the two dimples where a half vortex ring meets the surface. Each dimple bends light away from its center.</li>
+      <li>After a few seconds the ring travels at a constant speed, with a diameter about <span class="key">1.15</span> times the plate's.</li>
+      <li>Viscosity slowly widens each whirlpool. The shadow shrinks, then vanishes all at once while the water still spins.</li>
+      <li>From a pool video about 6 s long, we predicted the shadows vanish after <span class="key">670 ± 80 s</span>, about 11 minutes.</li>
+      <li>In our tank the prediction, <span class="key">14 ± 4 s</span>, agreed with the measured lifetime, <span class="key">11 ± 1 s</span>, within the uncertainties.</li>
+    </ul>
+  </div>
+
+  <a class="cta" href="slides.html">See all the slides →</a>
+  <footer>Team presentation at IPT 2024, where our team won the silver medal (2nd of 21 countries).</footer>
+</div>
+</body>
+</html>
