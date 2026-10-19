@@ -11,44 +11,38 @@
 <style>
 *,*::before,*::after{box-sizing:border-box}
 body{margin:0}
+img{max-width:100%}
 
-/* Layout: plain single column on white, like a simple academic homepage. Light only, by choice. */
+/* Layout: plain single column on white (academic homepage), ending with project cards (animation, question, key results, link). Light only. */
 :root {
   --bg: #ffffff;
   --fg: #1a1a1a;
   --muted: #666b70;
   --rule: #e6e6e6;
   --accent: #1f5f8b;
+  --stage: #f2f4f5;
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-ui: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
   color-scheme: light;
 }
 body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.6;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-.page { max-width: 42rem; margin: 0 auto; padding-block: clamp(2rem, 6vw, 4rem) 3rem; }
-
+.page { max-width: 42rem; margin: 0 auto; padding-block: clamp(2rem, 6vw, 4rem) 0; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-h1 { font-family: var(--font-body); font-weight: 600; font-size: 2rem; line-height: 1.2; margin: 0 0 0.25rem; }
+h1 { font-weight: 600; font-size: 2rem; line-height: 1.2; margin: 0 0 0.25rem; }
 .role { margin: 0; color: var(--muted); }
-.links { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin: 0.75rem 0 0; padding: 0; list-style: none;
-  font-family: var(--font-ui); font-size: 0.95rem; }
+.links { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin: 0.75rem 0 0; padding: 0; list-style: none; font-family: var(--font-ui); font-size: 0.95rem; }
 .email { color: var(--fg); user-select: all; }
-
 .intro { margin-top: 2rem; }
 .intro p { margin: 0 0 0.9rem; }
 
-h2 { font-family: var(--font-ui); font-weight: 600; font-size: 0.95rem; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
+h2 { font-family: var(--font-ui); font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  margin: 2.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }
 ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
 .item b { font-weight: 600; }
 .item .sub { color: var(--muted); }
@@ -56,7 +50,52 @@ ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
 .date { font-family: var(--font-ui); font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
 .head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 1rem; align-items: baseline; }
 
-footer { margin-top: 3rem; color: var(--muted); font-family: var(--font-ui); font-size: 0.9rem; }
+/* Projects: one card per project (media left, text right; stacked on phones). Clips cross-fade on a timer. */
+.projects { max-width: 58rem; margin: 0 auto; }
+
+.projects > .lead { color: var(--muted); margin-top: 0; }
+.project.group-end { border-bottom: 0; }
+.group-sep { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0 0; font-family: var(--font-ui); font-size: 0.85rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.group-sep { text-align: center; }
+.group-sep::before, .group-sep::after { content: ""; flex: 1; min-width: 1.5rem; border-top: 1px solid var(--muted); opacity: 0.6; }
+.group-lead { color: var(--muted); margin: 0.6rem 0 0; text-align: center; font-size: 0.98rem; }
+.awards { max-width: 42rem; margin: 1rem auto 0.5rem; padding-left: 1.1rem; font-family: var(--font-ui); font-size: 0.95rem; display: grid; gap: 0.4rem; }
+.awards b { font-weight: 600; }
+.awards a { white-space: nowrap; }
+
+.project { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 1.25rem 2rem; align-items: start;
+  padding-block: 2rem; border-bottom: 1px solid var(--rule); }
+.project:last-of-type { border-bottom: 0; }
+.media { position: relative; }
+.media .clip, .media .anim { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 6px; background: var(--stage); overflow: hidden; }
+.media .clip { object-fit: cover; }
+.media .clip + .clip { position: absolute; inset: 0 0 auto 0; }
+.media .clip { transition: opacity 0.8s ease; }
+.media .clip.off { opacity: 0; }
+.media .anim img, .media .anim canvas { display: block; width: 100%; height: auto; }
+.clip-cap { font-family: var(--font-ui); font-size: 0.88rem; color: var(--muted); margin: 0.5rem 0 0; min-height: 2.6em; }
+.project h3 { font-weight: 600; font-size: 1.35rem; line-height: 1.25; margin: 0 0 0.15rem; }
+.project .meta { font-family: var(--font-ui); font-size: 0.9rem; color: var(--muted); margin: 0 0 0.75rem; }
+.project .question { margin: 0 0 0.9rem; }
+.project .intro-line { margin: 0 0 0.6rem; }
+.project .statement { background: #edf3f8; border-left: 3px solid var(--accent); border-radius: 4px; padding: 0.6rem 0.85rem; margin: 0 0 0.9rem; }
+.project .statement .label { display: block; font-family: var(--font-ui); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.15rem; }
+.project .teaser { margin: 0 0 1.25rem; }
+.project .teaser b { color: var(--accent); font-weight: 600; }
+.facts { margin: 0 0 1.25rem; padding-left: 1.1rem; display: grid; gap: 0.45rem; font-size: 0.98rem; }
+.facts b { color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; }
+.links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.25rem; margin: 0; font-family: var(--font-ui); }
+.cta { display: inline-block; font-weight: 600; color: var(--bg); background: var(--accent); padding: 0.55rem 1rem; border-radius: 5px; }
+.cta:hover { text-decoration: none; filter: brightness(1.1); }
+.secondary { font-weight: 600; }
+.projects-end { height: 2rem; }
+
+footer { max-width: 42rem; margin: 0 auto; border-top: 1px solid var(--rule); padding-block: 1.5rem 3rem; color: var(--muted); font-family: var(--font-ui); font-size: 0.9rem; }
+
+@media (max-width: 640px) {
+  .project { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -69,49 +108,14 @@ footer { margin-top: 3rem; color: var(--muted); font-family: var(--font-ui); fon
       <li><a class="email" href="mailto:mdrieux@cs.cmu.edu">mdrieux@cs.cmu.edu</a></li>
       <li><a href="https://github.com/martindrieux">GitHub</a></li>
       <li><a href="https://linkedin.com/in/martin-drieux">LinkedIn</a></li>
+      <li><a href="cv.pdf">Resume (PDF)</a></li>
     </ul>
   </header>
 
   <div class="intro">
-    <p>I work on generative models and on post-training large language models. At Carnegie Mellon I study flow maps, models that generate in one or a few steps instead of hundreds. This summer at Mistral AI I worked on post-training for coding, on test writing and on the tests used to verify code.</p>
-    <p>Before CMU I studied applied math, physics and machine learning at École Polytechnique, and did research on neural PDE solvers at UC Berkeley.</p>
+    <p>Hi, I'm Martin Drieux, an MS in Machine Learning student at Carnegie Mellon University, advised by Max Simchowitz. I previously worked on generative modeling with Nicholas Boffi, on flow maps, and in Zico Kolter's group, on Mean Flow models. My interests are generative modeling and LLM post-training, which I worked on this summer as a research scientist intern at Mistral AI.</p>
+    <p>Before that, I studied applied math, physics and computer science at École Polytechnique, and worked on AI for scientific computing with Alexandre Bayen at BAIR, UC Berkeley.</p>
   </div>
-
-  <h2>Experience</h2>
-  <ul class="list">
-    <li class="item">
-      <div class="head"><span><b>Mistral AI</b> <span class="sub">· Research Scientist Intern</span></span><span class="date">2026</span></div>
-      <p>Improved a coding model's test writing with evals, synthetic data and SFT + RL: 15% → 32% on SWE Atlas Test Writing. Also improved the tests used as verifiers for general coding. Both were developed for the training of Mistral Large 4.</p>
-    </li>
-    <li class="item">
-      <div class="head"><span><b>Carnegie Mellon University</b> <span class="sub">· Research Assistant</span></span><span class="date">2025 – now</span></div>
-      <p>Flow-map generative models with Prof. Nicholas Boffi. Earlier, stochastic sampling and fixed-point training for Mean Flow models in Prof. Zico Kolter's group, with Zhengyang Geng.</p>
-    </li>
-    <li class="item">
-      <div class="head"><span><b>BAIR, UC Berkeley</b> <span class="sub">· Visiting Student Researcher</span></span><span class="date">2025</span></div>
-      <p>Neural PDE solvers with Prof. Alexandre Bayen, extended to Hamilton–Jacobi equations for control.</p>
-    </li>
-    <li class="item">
-      <div class="head"><span><b>Earlier</b></span><span class="date">2022 – 2024</span></div>
-      <p>Consultant intern at Avencore on a $100M+ cost-reduction project in uranium extraction. Deputy company commander in the Gendarmerie Nationale, building forensic tools for victim identification.</p>
-    </li>
-  </ul>
-
-  <h2>Papers</h2>
-  <ul class="list">
-    <li class="item">
-      <b>Supervised and Unsupervised Neural Network Solver for First Order Hyperbolic Nonlinear PDEs</b>
-      <p class="sub">Co-first author, with A. M. Bayen et al. · arXiv 2026 · <a href="https://arxiv.org/abs/2601.06388">arXiv</a></p>
-    </li>
-  </ul>
-
-  <h2>Physics presentations</h2>
-  <ul class="list">
-    <li class="item">
-      <div class="head"><span><b><a href="ipt/antibubbles/">Anti-bubbles</a></b> <span class="sub">· International Physicists' Tournament, Problem 15</span></span><span class="date">2024</span></div>
-      <p class="sub">How anti-bubbles form, why they collapse, and how we kept one alive for over an hour. Slides with the experiment videos.</p>
-    </li>
-  </ul>
 
   <h2>Education &amp; honors</h2>
   <ul class="list">
@@ -120,16 +124,181 @@ footer { margin-top: 3rem; color: var(--muted); font-family: var(--font-ui); fon
     </li>
     <li class="item">
       <div class="head"><span><b>École Polytechnique</b> <span class="sub">· Ingénieur (B.S./M.S.)</span></span><span class="date">2025</span></div>
-      <p class="sub">Applied math, physics and ML · GPA 3.96/4.0 · ranked 9th nationwide on the entrance exam, 1st in physics</p>
+      <p class="sub">Applied math, physics and ML · GPA 3.96/4.0</p>
+    </li>
+    <li class="item">
+      <div class="head"><span><b>Lycée Sainte-Geneviève</b> <span class="sub">· Classes préparatoires, Versailles</span></span><span class="date">2020 – 2022</span></div>
+      <p class="sub">Two-year intensive program in math and physics, preparing for the entrance exams of the French engineering schools</p>
     </li>
     <li class="item">
       <div class="head"><span><b>International Physicists' Tournament</b></span><span class="date">2024</span></div>
-      <p class="sub">Silver medal internationally (2nd of 21 countries), gold nationally</p>
+      <p class="sub">Silver medal internationally (2nd of 21 teams), gold nationally · <a href="#projects">projects below</a></p>
     </li>
   </ul>
-
-  <footer>Pittsburgh, PA · Updated October 2026</footer>
 </div>
+
+<section class="projects" id="projects" aria-labelledby="proj-title">
+  <h2 id="proj-title">Projects</h2>
+  <p class="lead">Two research papers, then five problems our team worked on for the International Physicists' Tournament 2024.</p>
+  <article class="project" id="eqfm">
+    <div class="media">
+      <div class="anim" data-anim="eqfm"></div>
+      <p class="clip-cap"><span class="eqfm-live">Same noise, same field (arrows). Left: following the equilibrium field, small steps settle on the data (green). Right: the equilibrium flow map gets there in a few jumps.</span> <span class="nfvm-note">(Toy 2D example, exact map.)</span></p>
+    </div>
+    <div class="body">
+      <h3>Equilibrium Flow Maps</h3>
+      <p class="meta">Paper · CMU · under review at ICLR 2027 · co-first author</p>
+      <p class="question">Flow maps make flow models fast by jumping along the flow. Equilibrium models drop the time input and let samples settle on the data, which makes refinement natural but takes infinitely long. Can one model do both?</p>
+      <ul class="facts">
+        <li>We introduce a flow map for equilibrium models: one network moves a sample along the flow by any duration, from a short refinement step to a jump straight to the data.</li>
+        <li>The key step: compressing the infinite time line onto the interval from 0 to 1, so that "jump to the end" becomes a duration of 1.</li>
+        <li>On ImageNet, FID <b>2.90</b> with one call and <b>1.96</b> with eight (lower is better).</li>
+      </ul>
+    </div>
+  </article>
+  <article class="project group-end" id="nfvm">
+    <div class="media">
+      <div class="anim" data-anim="nfvm"><img class="anim-poster" src="research/nfvm/poster.png" alt="Still frame of the solver: cars on a road, the density in each cell as bars, orange flux arrows between cells, a small neural network under two highlighted cells, and the density history below." width="574" height="430"></div>
+      <p class="clip-cap"><span class="nfvm-live">A small neural network computes the flow of cars between neighboring cells, then each cell is updated.</span> <span class="nfvm-note">(Illustration: flows computed with a classical scheme.)</span></p>
+    </div>
+    <div class="body">
+      <h3>Neural finite volume solver</h3>
+      <p class="meta">Paper · BAIR, UC Berkeley · co-first author, with A. M. Bayen et al.</p>
+      <p class="question">Conservation laws describe traffic, fluids and waves, and their solutions develop sharp jumps, like the back of a traffic jam. Can a neural network solve them accurately without breaking conservation?</p>
+      <ul class="facts">
+      <li>We learn only the flux, the flow between neighboring cells, inside a classical finite volume solver. What leaves one cell enters the next, so the solution stays conservative.</li>
+      <li>At comparable cost it often beats standard solvers such as Godunov's scheme and WENO, with an error <b>about 8× lower</b> than Godunov's in our best setting.</li>
+      <li>It trains from solved examples or from the equation alone, and we prove it can reach any accuracy on a fine enough grid.</li>
+    </ul>
+      <p class="links"><a class="cta" href="research/nfvm/">How it works →</a> <a class="secondary" href="https://arxiv.org/abs/2601.06388">Paper</a></p>
+    </div>
+  </article>
+  <div class="group-sep" role="separator">International Physicists' Tournament 2024</div>
+  <p class="group-lead">Open physics problems, each worked on for a year by our team of six students.</p>
+  <ul class="awards">
+    <li><b>Silver medal</b> at the International Physicists' Tournament 2024 in Zurich, 2nd of 21 teams. <a href="https://2024.iptnet.info/2024/04/09/the-winner-of-ipt-2024-is-germany/">Results</a> · <a href="https://polytechnique.edu/en/news/ecole-polytechnique-silver-medallist-2024-international-physicists-tournament">École Polytechnique news</a></li>
+    <li><b>Gold medal</b>: 1st place at the French Physicists' Tournament 2024, the national selection. <a href="https://france.iptnet.info/fpt-2024/">Tournament site</a></li>
+    <li><b>Award for best collective scientific project</b> (PSC) at École Polytechnique, one of three among the 112 projects of our class. <a href="https://www.polytechnique.edu/en/news/three-collective-scientific-projects-x2022-class-awarded">Announcement</a></li>
+  </ul>
+  <article class="project" id="antibubbles">
+    <div class="media">
+      <video class="clip" autoplay muted loop playsinline poster="ipt/antibubbles/p14.jpg" aria-label="Close-up of two antibubbles in soapy water; the larger one bursts" data-cap="Two antibubbles. Each is a ball of liquid inside a thin shell of air (the dark ring).">
+        <source src="ipt/antibubbles/s14.webm" type="video/webm"><source src="ipt/antibubbles/s14.mp4" type="video/mp4"></video>
+      <video class="clip off" preload="none" muted loop playsinline poster="ipt/antibubbles/p13.jpg" aria-label="A column of liquid pinches off into a large antibubble" data-cap="A column of liquid pinches off and closes into a large antibubble.">
+        <source src="ipt/antibubbles/s13.webm" type="video/webm"><source src="ipt/antibubbles/s13.mp4" type="video/mp4"></video>
+      <video class="clip off" preload="none" muted loop playsinline poster="ipt/antibubbles/p06.jpg" aria-label="Slow-motion footage of a drop entering the bath and trapping a layer of air" data-cap="In slow motion, the drop pushes a pocket of air into the surface, which closes around it.">
+        <source src="ipt/antibubbles/s06.webm" type="video/webm"><source src="ipt/antibubbles/s06.mp4" type="video/mp4"></video>
+      <p class="clip-cap">Two antibubbles. Each is a ball of liquid inside a thin shell of air (the dark ring).</p>
+    </div>
+    <div class="body">
+      <h3>Anti-bubbles</h3>
+      <p class="meta">IPT 2024 · Problem 15</p>
+      <p class="statement"><span class="label">The problem</span>An antibubble is water trapped in water, inside a thin shell of air. How do they form? How large and how long-lived can you make them, and are size and lifetime related?</p>
+      <p class="teaser">We made both the largest (<b>19&nbsp;mm</b> across) and the longest-living (<b>1&nbsp;h&nbsp;11&nbsp;min</b>) antibubbles we know of!</p>
+      <p class="links"><a class="cta" href="ipt/antibubbles/">How we did it →</a> <a class="secondary" href="ipt/antibubbles/slides.html">Slides</a></p>
+    </div>
+  </article>
+  <article class="project" id="sound-check">
+    <div class="media">
+      <video class="clip" autoplay muted loop playsinline poster="ipt/sound-check/q35.jpg" aria-label="Close-up footage of tiny bubbles in a drink thinning out as they rise" data-cap="Close-up view of the tiny bubbles in Ricard. As they rise and leave, the bottle rings normally again.">
+        <source src="ipt/sound-check/c35.webm" type="video/webm"><source src="ipt/sound-check/c35.mp4" type="video/mp4"></video>
+      <video class="clip off" preload="none" muted loop playsinline poster="ipt/sound-check/q02.jpg" aria-label="A hand taps a bottle with a tool, flips it upside down and back, and taps it again" data-cap="The effect: tap the bottle, turn it upside down and back, tap again.">
+        <source src="ipt/sound-check/c02.webm" type="video/webm"><source src="ipt/sound-check/c02.mp4" type="video/mp4"></video>
+      <p class="clip-cap">Close-up view of the tiny bubbles in Ricard. As they rise and leave, the bottle rings normally again.</p>
+    </div>
+    <div class="body">
+      <h3>Alcohol sound check</h3>
+      <p class="meta">IPT 2024 · Problem 4</p>
+      <p class="statement"><span class="label">The problem</span>Some Brazilian distilleries judge their spirit by the sound of the bottle: tapped right after being turned upside down, it gives a short, dull sound instead of ringing. What causes this? Why does it fail with carbonated drinks, and which liquids keep the effect longest?</p>
+      <p class="teaser">The tiny bubbles made by the flip cause it. Surprisingly, the sound is damped by heat: its vibration squeezes each bubble, heating it locally, and that energy is lost!</p>
+      <p class="links"><a class="cta" href="ipt/sound-check/">How we did it →</a> <a class="secondary" href="ipt/sound-check/slides.html">Slides</a></p>
+    </div>
+  </article>
+  <article class="project" id="smart-water">
+    <div class="media">
+      <video class="clip" autoplay muted loop playsinline poster="ipt/smart-water/q28.jpg" aria-label="Top view of a map of France between two clear plates, with pegs at 13 cities joined by thin soap films" data-cap="Pegs at the 13 largest French cities, joined by soap films (4× speed).">
+        <source src="ipt/smart-water/c28.webm" type="video/webm"><source src="ipt/smart-water/c28.mp4" type="video/mp4"></video>
+      <video class="clip off" preload="none" muted loop playsinline poster="ipt/smart-water/q15.jpg" aria-label="Top view of five pegs between clear plates; the soap film joining them jumps to a new arrangement with three-way junctions" data-cap="Five pegs. The film leaves a longer arrangement and settles into a shorter one (3× speed).">
+        <source src="ipt/smart-water/c15.webm" type="video/webm"><source src="ipt/smart-water/c15.mp4" type="video/mp4"></video>
+      <video class="clip off" preload="none" muted loop playsinline poster="ipt/smart-water/q17.jpg" aria-label="Top view of six pegs on a hexagon; the soap film rearranges until it runs along five sides of the hexagon" data-cap="Six pegs on a regular hexagon. The film settles on five of its sides, the shortest network here (2× speed).">
+        <source src="ipt/smart-water/c17.webm" type="video/webm"><source src="ipt/smart-water/c17.mp4" type="video/mp4"></video>
+      <p class="clip-cap">Pegs at the 13 largest French cities, joined by soap films (4× speed).</p>
+    </div>
+    <div class="body">
+      <h3>Smart Water</h3>
+      <p class="meta">IPT 2024 · Problem 7</p>
+      <p class="statement"><span class="label">The problem</span>If you let water flow in a maze, you get a physical maze-solving algorithm. Many other algorithms and computations can be done with physical systems. Create a water-based computer, without electronics, that solves an NP-hard problem.</p>
+      <p class="teaser">Our soap films solve the Steiner tree problem (the shortest network joining given points), sometimes faster than the best algorithms on regular hardware!</p>
+      <p class="links"><a class="cta" href="ipt/smart-water/">How we did it →</a> <a class="secondary" href="ipt/smart-water/slides.html">Slides</a></p>
+    </div>
+  </article>
+  <article class="project" id="vortex-rings">
+    <div class="media">
+      <video class="clip" autoplay muted loop playsinline poster="ipt/vortex-rings/p01pg.jpg" aria-label="A plate is pushed through a swimming pool; two dark round shadows appear on the floor and drift away" data-cap="The pool video from the problem statement, partly sped up. A plate pushed through the water leaves two dark shadows on the floor.">
+      <source src="ipt/vortex-rings/s01pg.webm" type="video/webm"><source src="ipt/vortex-rings/s01pg.mp4" type="video/mp4"></video>
+    <video class="clip off" preload="none" muted loop playsinline poster="ipt/vortex-rings/p08c.jpg" aria-label="Top view of a water tank: two dark shadows on the floor shrink and vanish" data-cap="Top view of our tank (2× speed). The two shadows of one vortex ring shrink and vanish.">
+        <source src="ipt/vortex-rings/s08c.webm" type="video/webm"><source src="ipt/vortex-rings/s08c.mp4" type="video/mp4"></video>
+      <p class="clip-cap">The pool video from the problem statement, partly sped up. A plate pushed through the water leaves two dark shadows on the floor.</p>
+    </div>
+    <div class="body">
+      <h3>Pool Vortex Rings</h3>
+      <p class="meta">IPT 2024 · Problem 12</p>
+      <p class="statement"><span class="label">The problem</span>Drag a plate through still water and two black circles appear on the bottom of the pool: the shadows of whirlpools at the surface. From a short video of the shadows, can you predict how long the whirlpools will last?</p>
+      <p class="teaser">From the problem's pool video, we predicted about <b>11&nbsp;minutes</b>. In our tank, the same method predicted <b>14&nbsp;±&nbsp;4&nbsp;s</b> and we measured <b>11&nbsp;±&nbsp;1&nbsp;s</b>!</p>
+      <p class="links"><a class="cta" href="ipt/vortex-rings/">How we did it →</a> <a class="secondary" href="ipt/vortex-rings/slides.html">Slides</a></p>
+    </div>
+  </article>
+  <article class="project" id="galton-board">
+    <div class="media">
+      <video class="clip" autoplay muted loop playsinline poster="ipt/galton-board/p08c.jpg" aria-label="Simulated beads fall from a hopper through a grid of pegs and pile up in bins" data-cap="Our simulation of a Galton board (2× speed). Beads bounce through the pegs and pile up in the bins.">
+        <source src="ipt/galton-board/s08c.webm" type="video/webm"><source src="ipt/galton-board/s08c.mp4" type="video/mp4"></video>
+      <video class="clip off" preload="none" preload="none" muted loop playsinline poster="ipt/galton-board/p11c.jpg" aria-label="Glass beads are poured into a wide wooden board with a grid of pegs and fill the bins at the bottom" data-cap="Pouring glass beads into our modular board, where pegs can be rearranged on a grid of holes (2× speed).">
+        <source src="ipt/galton-board/s11c.webm" type="video/webm"><source src="ipt/galton-board/s11c.mp4" type="video/mp4"></video>
+      <p class="clip-cap">Our simulation of a Galton board (2× speed). Beads bounce through the pegs and pile up in the bins.</p>
+    </div>
+    <div class="body">
+      <h3>The Galton Board</h3>
+      <p class="meta">IPT 2024 · Problem 1</p>
+      <p class="statement"><span class="label">The problem</span>Beads dropped through rows of evenly spaced pegs are said to pile up in a bell shape (a binomial distribution). Can changing the pegs, their layout or the beads give other shapes? Can independent, identical beads escape the central limit theorem? What if the board vibrates?</p>
+      <p class="teaser">Place the pegs at the right points and a board can produce any pile shape you choose: we simulated bell-shaped, log-normal and exponential ones!</p>
+      <p class="links"><a class="cta" href="ipt/galton-board/">How we did it →</a> <a class="secondary" href="ipt/galton-board/slides.html">Slides</a></p>
+    </div>
+  </article>
+  <div class="projects-end"></div>
+</section>
+
+<footer>Pittsburgh, PA · Updated October 2026</footer>
+
+<script src="research/nfvm/anim.js"></script>
+<script src="research/eqfm/anim.js"></script>
+<script>
+(() => {
+  // Cross-fade between the clips of each card, every 7 s, and show the matching caption.
+  document.querySelectorAll('.project .media').forEach(media => {
+    const clips = [...media.querySelectorAll('video.clip')];
+    const cap = media.querySelector('.clip-cap');
+    if (clips.length < 2) return;
+    let i = 0;
+    setInterval(() => {
+      const next = (i + 1) % clips.length;
+      const v = clips[next];
+      v.preload = 'auto'; v.play().catch(() => {});
+      v.classList.remove('off');
+      clips[i].classList.add('off');
+      const prev = clips[i]; setTimeout(() => prev.pause(), 900);
+      if (cap && v.dataset.cap) cap.textContent = v.dataset.cap;
+      i = next;
+    }, 7000);
+  });
+  // Mount the NFVM animation in its card.
+  document.querySelectorAll('.anim[data-anim="eqfm"]').forEach(el => {
+    if (window.EqFMAnim) window.EqFMAnim.mount(el, { compact: true, captionEl: el.parentNode.querySelector('.eqfm-live') });
+  });
+  document.querySelectorAll('.anim[data-anim="nfvm"]').forEach(el => {
+    if (window.NFVMAnim) window.NFVMAnim.mount(el, { compact: true, captionEl: el.parentNode.querySelector('.nfvm-live') });
+  });
+})();
+</script>
 
 </body>
 </html>
