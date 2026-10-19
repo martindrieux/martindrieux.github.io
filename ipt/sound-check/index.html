@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alcohol sound check, IPT 2024</title>
+<meta name="description" content="Why a freshly flipped bottle of spirit sounds dull when tapped: Martin Drieux's team work on Problem 4 of the International Physicists' Tournament 2024.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="../story.css">
+<style>
+/* Portrait phone clips: keep them from filling the whole screen. */
+figure.tall video{width:auto;max-width:100%;max-height:min(70vh,560px);margin:0 auto}
+figure.pair video{width:100%;max-height:min(62vh,520px);object-fit:contain}
+.sound{font-family:var(--font-ui);font-weight:600;color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="../../">← Martin Drieux</a>
+  <h1>Alcohol sound check</h1>
+  <p class="meta">International Physicists' Tournament 2024 · Problem 4 · École Polytechnique team</p>
+  <p class="question"><span class="label">The question</span>Some distilleries in Brazil praise the quality of their spirit by the distinct sound the bottle makes when it is hit right after being quickly turned upside down. Investigate the phenomenon. Why does the effect not work with alcoholic carbonated drinks? What other liquids keep this “damping” effect for longer?</p>
+
+  <section>
+    <h2>A tap that goes dull</h2>
+    <p>Tap a bottle of spirit and it rings. Turn it upside down and back, tap again, and the sound is quieter and dies out sooner. Physicists call this loss of sound damping. Our recordings also show a change of pitch.</p>
+    <p>To measure it, we clamped the bottle on a rotating axis, flipped it by hand against a stop, struck it with a wrench and recorded each tap with a microphone. For every tap we measured the ring time: how long the sound takes to fall to 5% of its starting level.</p>
+    <figure class="tall"><video controls playsinline preload="metadata" poster="p02.jpg"><source src="s02a.webm" type="video/webm"><source src="s02a.mp4" type="video/mp4"></video><figcaption><span class="sound">Sound on.</span> A bottle is tapped, turned upside down and back, then tapped again. The last taps are shorter and quieter.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>The cause is tiny bubbles</h2>
+    <p>Flipping a bottle does several things at once. The liquid sloshes, wets the walls, and fills with tiny air bubbles. We changed one thing at a time. Blowing bubbles in with a straw, with little sloshing, still muffled the tap. Turning the bottle slowly, so that the liquid moves but no bubbles form, changed nothing. A nearly full bottle, with almost no free surface, was still muffled. Only the bubbles matter.</p>
+    <figure class="pair">
+      <div><video controls playsinline preload="metadata" poster="p04.jpg"><source src="s04a.webm" type="video/webm"><source src="s04a.mp4" type="video/mp4"></video><p class="cap"><span class="sound">Sound on.</span> Bubbles blown in through a straw. The taps after the bubbles appear are duller.</p></div>
+      <div><video controls playsinline preload="metadata" poster="p04b.jpg"><source src="s04ba.webm" type="video/webm"><source src="s04ba.mp4" type="video/mp4"></video><p class="cap"><span class="sound">Sound on.</span> A slow turn makes no bubbles, and the tap sounds the same afterwards.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Why bubbles eat the sound</h2>
+    <p>The bottle rings at about 2900 vibrations per second. This sound squeezes and releases every bubble at the same rate. Squeezed gas heats up, but not evenly, so heat flows between the gas and the liquid around it. This heat is only partly turned back into motion, so a little sound energy is lost at every squeeze.</p>
+    <p>We used a published model of sound in bubbly liquids (Commander and Prosperetti, 1989) to compare three ways a bubble can drain sound energy: friction in the liquid (viscosity), this heat exchange, and sound re-emitted by the bubble. The heat exchange was by far the largest.</p>
+    <figure><img src="f14.jpg" alt="Diagram of a bubble squeezed from all sides; a red ring marks the heated gas and small yellow arrows show heat flowing"><figcaption>A bubble squeezed by the sound wave (black arrows). The gas heats up unevenly (red), and heat flows (yellow arrows).</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>The ring comes back as the bubbles rise</h2>
+    <p>The bubbles in our drink (Ricard) are about 0.11&nbsp;mm in size. Filming them close up, we measured them rising at 4.7&nbsp;mm per second, with about 350 bubbles in each millilitre. Small bubbles rise at a steady speed set by their size and by how thick (viscous) the liquid is, so we could predict when the last ones leave: about 8 seconds.</p>
+    <p>We kept tapping the bottle after flipping it. The ring time dropped from about 0.2&nbsp;s to about 0.01&nbsp;s, then grew back and levelled off after 8&nbsp;±&nbsp;2&nbsp;s, as predicted.</p>
+    <figure class="pair">
+      <div><video autoplay muted loop playsinline poster="p35.jpg"><source src="s35.webm" type="video/webm"><source src="s35.mp4" type="video/mp4"></video><p class="cap">Close-up view of the bubbles in Ricard (dark dots) thinning out as they rise.</p></div>
+      <div><img src="f23.jpg" alt="Plot of ring time against time after the flip for Ricard: about 0.2 s before, near 0 just after, back to 0.2 s after about 8 s"><p class="cap">Ring time of each tap against time since the flip (each dot is one tap). The dashed line marks where it levels off.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Thick liquids keep it longer, foam spoils it</h2>
+    <p>The same model says the effect lasts longer in a more viscous or less dense liquid, because the bubbles rise more slowly. In water and in ethanol it lasted at most 2&nbsp;s, in sunflower oil 19&nbsp;±&nbsp;2&nbsp;s, and in very thick castor oil 160&nbsp;±&nbsp;20&nbsp;s. In water–ethanol mixtures it depends on the ethanol fraction, mainly through viscosity, which raises the question of whether the sound could serve as a quality test.</p>
+    <p>Beer behaves differently. Flipping it makes foam, and the ring time does not come back to its starting value, because the foam changes how the bottle itself rings. Adding gas to Ricard gave the same pattern as plain Ricard, so the gas is not the main problem. The foam comes from soap-like (amphiphilic) molecules that many carbonated alcoholic drinks contain.</p>
+    <figure><img src="f25.jpg" alt="Plot of ring time against time for castor oil, levelling off after about 160 s"><figcaption>Castor oil: ring time of each tap against time since the flip, in seconds. It needs about 160&nbsp;s to level off (dashed lines).</figcaption></figure>
+  </section>
+
+  <div class="results">
+    <h2>What we found</h2>
+    <ul>
+      <li>The dull sound comes from the tiny bubbles made by the flip. Without bubbles, the tap sounds normal.</li>
+      <li>The bubbles take energy from the sound mainly through heat flow in the squeezed gas, far more than through friction in the liquid.</li>
+      <li>In Ricard the normal ring returned after <span class="key">8 ± 2 s</span>, close to the <span class="key">8 s</span> we predicted for the bubbles to rise out.</li>
+      <li>Thicker liquids keep the effect longer: at most <span class="key">2 s</span> in water, <span class="key">19 ± 2 s</span> in sunflower oil, <span class="key">160 ± 20 s</span> in castor oil.</li>
+      <li>In carbonated drinks such as beer, foam changes the ring of the bottle, so the sound does not return to normal. The foam is the problem, and the dissolved gas is not the main factor.</li>
+    </ul>
+  </div>
+
+  <a class="cta" href="slides.html">See all the slides →</a>
+  <footer>Team presentation at IPT 2024. The three clips marked “Sound on” have their original sound; all other clips are silent.</footer>
+</div>
+</body>
+</html>
