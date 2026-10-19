@@ -4,164 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Anti-bubbles, IPT 2024</title>
-<meta name="description" content="Martin Drieux's team presentation for Problem 15 (Anti-bubbles) at the International Physicists' Tournament 2024.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="How our team made antibubbles, found what makes them burst, and kept one alive for 1 h 11 min in a vibrated bowl.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
-<style>
-*,*::before,*::after{box-sizing:border-box}
-body{margin:0}
-img{max-width:100%}
-
-/* Layout: same plain white column as the homepage, widened for a 16:9 slide stage with a thumbnail strip below. */
-:root {
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --muted: #666b70;
-  --rule: #e6e6e6;
-  --accent: #1f5f8b;
-  --stage: #f3f4f5;
-  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-ui: "Source Sans 3", "Helvetica Neue", Arial, sans-serif;
-  color-scheme: light;
-}
-body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 1.05rem; line-height: 1.6;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-.page { max-width: 64rem; margin: 0 auto; padding-block: clamp(1.5rem, 4vw, 3rem) 3rem; }
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.back { font-family: var(--font-ui); font-size: 0.95rem; }
-h1 { font-weight: 600; font-size: 1.9rem; line-height: 1.2; margin: 0.75rem 0 0.25rem; text-wrap: balance; }
-.sub { color: var(--muted); margin: 0; }
-.intro { max-width: 42rem; margin: 1rem 0 1.5rem; }
-.intro p { margin: 0 0 0.75rem; }
-blockquote { margin: 0; padding: 0 0 0 1rem; border-left: 2px solid var(--rule); color: var(--muted); font-style: italic; }
-
-.viewer { display: grid; gap: 0.75rem; }
-.stage { position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; background: var(--stage);
-  border: 1px solid var(--rule); overflow: hidden; touch-action: pan-y; }
-.stage img.slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
-.stage video { position: absolute; object-fit: fill; background: transparent; cursor: pointer; }
-.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; font-family: var(--font-ui); }
-.bar button { font: inherit; font-size: 0.95rem; color: var(--fg); background: var(--bg); border: 1px solid var(--rule);
-  border-radius: 4px; padding: 0.3rem 0.8rem; cursor: pointer; }
-.bar button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-.bar button:disabled { color: var(--muted); cursor: default; opacity: 0.5; }
-.count { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.95rem; }
-.title { font-weight: 600; flex: 1 1 12rem; min-width: 0; }
-.hint { color: var(--muted); font-size: 0.85rem; }
-.strip { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; scroll-snap-type: x proximity; }
-.thumb { flex: 0 0 auto; width: 8.5rem; padding: 0; border: 2px solid transparent; border-radius: 3px; background: none; cursor: pointer;
-  scroll-snap-align: start; position: relative; }
-.thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--rule); }
-.thumb[aria-current="true"] { border-color: var(--accent); }
-.thumb .n { position: absolute; left: 4px; bottom: 4px; font-family: var(--font-ui); font-size: 0.7rem; background: var(--bg);
-  color: var(--fg); padding: 0 4px; border-radius: 2px; }
-.thumb .vid { position: absolute; right: 4px; bottom: 4px; font-family: var(--font-ui); font-size: 0.7rem; background: var(--accent);
-  color: var(--bg); padding: 0 4px; border-radius: 2px; }
-.divider { flex: 0 0 auto; align-self: center; font-family: var(--font-ui); font-size: 0.75rem; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); writing-mode: vertical-rl; transform: rotate(180deg); padding: 0 0.25rem; }
-footer { margin-top: 2.5rem; color: var(--muted); font-family: var(--font-ui); font-size: 0.9rem; }
-@media (max-width: 560px) { .hint { display: none; } .thumb { width: 6.5rem; } }
-</style>
+<link rel="stylesheet" href="../story.css">
+<style>figure img{height:auto}figure.pair{align-items:start}</style>
 </head>
 <body>
-
 <div class="page">
   <a class="back" href="../../">← Martin Drieux</a>
   <h1>Anti-bubbles</h1>
-  <p class="sub">International Physicists' Tournament 2024 · Problem 15 · École Polytechnique team</p>
+  <p class="meta">International Physicists' Tournament 2024 · Problem 15 · École Polytechnique team</p>
+  <p class="question"><span class="label">The question</span>Drop regular water very slowly into water whose surface tension has been lowered with soap. The drop can end up wrapped in a thin shell of air. Explain how this antibubble forms, make it as large and as long-lived as possible, and find out whether its size and lifetime are related.</p>
 
-  <div class="intro">
-    <p>Our team's presentation for this problem at IPT 2024, where we won the silver medal (2nd of 21 countries). The problem:</p>
-    <blockquote>Fill a container with water with decreased surface tension. Then drop a droplet of regular water into the container (very slowly). Investigate the phenomenon. Maximize the size and lifetime of an anti-bubble. Are these quantities related?</blockquote>
+  <section>
+    <h2>What an antibubble is</h2>
+    <p>A soap bubble is a thin film of liquid with air on both sides. An antibubble is the reverse. It is a ball of liquid wrapped in a thin shell of air, floating inside the same liquid.</p>
+    <p>Soap molecules line both faces of the air shell. The shell is very thin, about a thousandth of the antibubble's radius.</p>
+    <figure class="pair">
+      <div><img src="f03.jpg" alt="Diagram of an antibubble: a ball of liquid, a white shell of air, and liquid outside, with soap molecules on both faces of the shell." width="700" height="700"><p class="cap">Liquid inside, a shell of air (white), liquid outside. The green shapes are soap molecules.</p></div>
+      <div><video autoplay muted loop playsinline poster="p14.jpg"><source src="s14.webm" type="video/webm"><source src="s14.mp4" type="video/mp4"></video><p class="cap">Two real antibubbles. The dark ring is the air shell. The larger one bursts at the end.</p></div>
+    </figure>
+  </section>
+
+  <section>
+    <h2>How a drop becomes an antibubble</h2>
+    <p>The bath is soapy water. The problem asks for drops of regular water, but those were difficult to turn into antibubbles, so we used soapy drops as well. A syringe pusher forms the drops at the end of a tube, and a lifting support sets the height they fall from.</p>
+    <p>Filmed in slow motion, the drop pushes a pocket of air down into the surface. The pocket then pinches shut above the drop and traps a layer of air around it.</p>
+    <p>The height has to be just right. Dropped from too low, the drop has too little energy to create the new air–liquid surface, and it stays on top as a small bead. Dropped from too high, the air film drains away before it is pulled under, and the drop collapses. In our tests, antibubbles formed only when the Weber number (the drop's kinetic energy divided by the surface energy it must create) was between <span class="key">1.4</span> and <span class="key">1.8</span>.</p>
+    <figure><video autoplay muted loop playsinline poster="p06.jpg"><source src="s06.webm" type="video/webm"><source src="s06.mp4" type="video/mp4"></video><figcaption>High-speed footage of a drop entering the bath, played back in slow motion.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Making them bigger</h2>
+    <p>A drop only works if it is past a certain size, and the size of the drop limits the size of the antibubble. To go bigger, we poured a column of liquid into the bath instead. The column pinches off and closes into an antibubble, with no limit set by drop size.</p>
+    <p>This method is hard to reproduce, but it gives a wide range of sizes. The trick is to make the column as tall and as wide as possible while keeping the air pocket under the surface. Our largest antibubble measured <span class="key">19 ± 1 mm</span> across.</p>
+    <figure><video autoplay muted loop playsinline poster="p13.jpg"><source src="s13.webm" type="video/webm"><source src="s13.mp4" type="video/mp4"></video><figcaption>A column of liquid enters from the top, pinches off and closes into a large antibubble, which sinks and later bursts.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Why they burst, and why size matters</h2>
+    <p>The air in the shell is lighter than the liquid, so it slowly flows upward around the ball. The shell thins underneath until it breaks. Soap slows this down. As the moving air drags the soap molecules along, they bunch up, and the resulting difference in surface tension pulls back against the flow (the Marangoni effect).</p>
+    <p>In a still bowl, our antibubbles lasted at most about <span class="key">80 s</span>. Adding sugar, which makes the liquid thicker, helped by damping disturbances. Antibubbles that sank lasted longer than those that floated. Our lifetimes were shorter than in a published study, which we attribute to impurities such as dust.</p>
+    <p>Size and lifetime are related. In a bigger antibubble the air has farther to travel before it reaches the top, so it can last longer. In our data the longest lifetime grows roughly linearly with the radius.</p>
+    <figure><img src="f30.jpg" alt="Left: two air shells of different radius with the same thickness. Right: lifetime in seconds against radius in millimetres for soapy water; the upper edge of the points rises along a straight dashed line up to about 82 s at 8.5 mm." width="1400" height="619"><figcaption>Left, the air must travel farther around a bigger shell. Right, our lifetimes against radius. The dashed line marks the longest lifetimes, which grow with size.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Keeping one alive for over an hour</h2>
+    <p>If draining kills antibubbles, we can try to undo it. We put the beaker on a vibrating stand. Each vibration reverses the drainage of the air shell.</p>
+    <p>The best frequency was <span class="key">30 Hz</span> (30 shakes per second). Our longest-lasting antibubble then survived <span class="key">1 h 11 min</span>, compared with about 80 s in a still bowl. This also showed that air dissolving into the liquid was not the main reason antibubbles burst.</p>
+    <figure class="pair">
+      <div><img src="f26.jpg" alt="A 500 mL beaker of yellow soapy liquid on a glass plate mounted on a cylindrical vibrating stand." width="600" height="885"><p class="cap">The beaker sits on a vibrating stand.</p></div>
+      <div><video autoplay muted loop playsinline poster="p27.jpg"><source src="s27.webm" type="video/webm"><source src="s27.mp4" type="video/mp4"></video><p class="cap">The vibrated beaker. The antibubbles sit just below the foam.</p></div>
+    </figure>
+  </section>
+
+  <div class="results">
+    <h2>What we found</h2>
+    <ul>
+      <li>A drop becomes an antibubble only in a narrow window of impact energy, a Weber number between <span class="key">1.4</span> and <span class="key">1.8</span>.</li>
+      <li>Pouring a column of liquid instead of single drops gave our largest antibubble, <span class="key">19 ± 1 mm</span> across.</li>
+      <li>Antibubbles die because the air in their shell drains upward. In a still bowl ours lasted at most about <span class="key">80 s</span>.</li>
+      <li>Bigger antibubbles can last longer. The longest lifetime grows roughly linearly with the radius.</li>
+      <li>Vibrating the bowl at <span class="key">30 Hz</span> reverses the drainage. Our best antibubble lasted <span class="key">1 h 11 min</span>.</li>
+    </ul>
   </div>
 
-  <div class="viewer">
-    <div class="stage" id="stage" aria-live="polite">
-      <img class="slide" id="slideImg" alt="">
-    </div>
-    <div class="bar">
-      <button id="prev" type="button" aria-label="Previous slide">← Prev</button>
-      <button id="next" type="button" aria-label="Next slide">Next →</button>
-      <span class="count" id="count"></span>
-      <span class="title" id="title"></span>
-      <span class="hint">Arrow keys or swipe to move. Click a video to pause it.</span>
-    </div>
-    <div class="strip" id="strip" aria-label="All slides"></div>
-  </div>
-
-  <footer>Slides 31–41 are backup slides.</footer>
+  <a class="cta" href="slides.html">See all the slides →</a>
+  <footer>Team presentation at IPT 2024, where our team won the silver medal (2nd of 21 countries).</footer>
 </div>
-
-<script>
-const SLIDES = [{"n": 1, "title": "Problem 15: Anti-bubbles", "videos": []}, {"n": 2, "title": "Subject", "videos": []}, {"n": 3, "title": "What is an antibubble?", "videos": []}, {"n": 4, "title": "Making antibubbles", "videos": [{"src": "s04.mp4", "x": 5.495, "y": 42.098, "w": 19.816, "h": 53.228}]}, {"n": 5, "title": "Making antibubbles-Setup", "videos": []}, {"n": 6, "title": "Formation of an antibubble", "videos": [{"src": "s06.mp4", "x": 5.716, "y": 30.013, "w": 43.878, "h": 67.997}]}, {"n": 7, "title": "Formation of an antibubble", "videos": []}, {"n": 8, "title": "Formation of an antibubble", "videos": []}, {"n": 9, "title": "Other methods-Surface bubbles", "videos": [{"src": "s09.mp4", "x": 7.946, "y": 31.858, "w": 31.528, "h": 52.318}]}, {"n": 10, "title": "Other methods-Column of liquid", "videos": [{"src": "s10.mp4", "x": 11.91, "y": 30.295, "w": 31.121, "h": 64.856}]}, {"n": 11, "title": "Maximizing the size", "videos": []}, {"n": 12, "title": "Maximizing the size", "videos": [{"src": "s12.mp4", "x": 5.481, "y": 30.194, "w": 44.519, "h": 64.482}]}, {"n": 13, "title": "Maximizing the size", "videos": [{"src": "s13.mp4", "x": 5.481, "y": 34.176, "w": 45.903, "h": 61.435}]}, {"n": 14, "title": "Lifetime of an antibubble", "videos": [{"src": "s14.mp4", "x": 58.614, "y": 37.762, "w": 25.275, "h": 32.856}]}, {"n": 15, "title": "Drainage of the film", "videos": []}, {"n": 16, "title": "Drainage of the film", "videos": []}, {"n": 17, "title": "Drainage of the film-Hydrostatic pressure", "videos": []}, {"n": 18, "title": "Drainage of the film-marangoni effect", "videos": []}, {"n": 19, "title": "Drainage of the film-marangoni effect", "videos": []}, {"n": 20, "title": "Drainage of the film-marangoni effect", "videos": []}, {"n": 21, "title": "Drainage of the film-marangoni effect", "videos": []}, {"n": 22, "title": "Drainage-expected lifetime", "videos": []}, {"n": 23, "title": "Lifetime: results", "videos": []}, {"n": 24, "title": "Lifetime: results", "videos": []}, {"n": 25, "title": "Lifetime: results", "videos": []}, {"n": 26, "title": "Maximizing Lifetime", "videos": []}, {"n": 27, "title": "Maximizing Lifetime", "videos": [{"src": "s27.mp4", "x": 3.497, "y": 32.487, "w": 40.845, "h": 62.701}]}, {"n": 28, "title": "Conclusion", "videos": []}, {"n": 29, "title": "Conclusion", "videos": []}, {"n": 30, "title": "Conclusion", "videos": []}, {"n": 31, "title": "Annexes", "videos": []}, {"n": 32, "title": "Gibbs surface elasticity", "videos": []}, {"n": 33, "title": "Estimating air film thickness", "videos": []}, {"n": 34, "title": "Appendix", "videos": []}, {"n": 35, "title": "Appendix", "videos": []}, {"n": 36, "title": "Other methods-soap film", "videos": [{"src": "s36.mp4", "x": 42.307, "y": 22.393, "w": 19.217, "h": 72.075}]}, {"n": 37, "title": "Appendix", "videos": []}, {"n": 38, "title": "Appendix", "videos": []}, {"n": 39, "title": "Appendix", "videos": []}, {"n": 40, "title": "Appendix", "videos": []}, {"n": 41, "title": "Appendix", "videos": []}];
-(() => {
-  const pad = n => String(n).padStart(2, '0');
-  const stage = document.getElementById('stage');
-  const img = document.getElementById('slideImg');
-  const strip = document.getElementById('strip');
-  const prev = document.getElementById('prev'), next = document.getElementById('next');
-  const count = document.getElementById('count'), title = document.getElementById('title');
-  let i = 0;
-
-  // Thumbnails
-  SLIDES.forEach((s, k) => {
-    if (s.n === 31) { const d = document.createElement('span'); d.className = 'divider'; d.textContent = 'Appendix'; strip.appendChild(d); }
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'thumb'; b.setAttribute('aria-label', `Slide ${s.n}${s.title ? ': ' + s.title : ''}`);
-    b.innerHTML = `<img loading="lazy" src="${pad(s.n)}.jpg" alt=""><span class="n">${s.n}</span>` + (s.videos.length ? '<span class="vid">video</span>' : '');
-    b.addEventListener('click', () => show(k));
-    strip.appendChild(b);
-  });
-  const thumbs = [...strip.querySelectorAll('.thumb')];
-
-  function show(k, fromHash) {
-    i = Math.max(0, Math.min(SLIDES.length - 1, k));
-    const s = SLIDES[i];
-    img.src = `${pad(s.n)}.jpg`;
-    img.alt = `Slide ${s.n}${s.title ? ': ' + s.title : ''}`;
-    stage.querySelectorAll('video').forEach(v => v.remove());
-    s.videos.forEach(v => {
-      const el = document.createElement('video');
-      Object.assign(el, { muted: true, loop: true, playsInline: true, autoplay: true });
-      ['webm', 'mp4'].forEach(ext => { const so = document.createElement('source'); so.src = v.src.replace(/\.mp4$/, '.' + ext); so.type = 'video/' + ext; el.appendChild(so); });
-      el.setAttribute('muted', ''); el.setAttribute('playsinline', '');
-      el.style.left = v.x + '%'; el.style.top = v.y + '%'; el.style.width = v.w + '%'; el.style.height = v.h + '%';
-      el.title = 'Click to pause or play';
-      el.addEventListener('click', () => el.paused ? el.play() : el.pause());
-      stage.appendChild(el);
-      el.play().catch(() => {});
-    });
-    count.textContent = `${s.n} / ${SLIDES.length}`;
-    title.textContent = s.n > 30 ? `Appendix${s.title && s.title !== 'Appendix' ? ': ' + s.title : ''}` : s.title;
-    prev.disabled = i === 0; next.disabled = i === SLIDES.length - 1;
-    thumbs.forEach((t, k2) => t.setAttribute('aria-current', k2 === i ? 'true' : 'false'));
-    thumbs[i].scrollIntoView({ block: 'nearest', inline: 'nearest' });
-    if (!fromHash) history.replaceState(null, '', '#' + s.n);
-    [i - 1, i + 1].forEach(j => { if (SLIDES[j]) { const p = new Image(); p.src = `${pad(SLIDES[j].n)}.jpg`; } });
-  }
-
-  prev.addEventListener('click', () => show(i - 1));
-  next.addEventListener('click', () => show(i + 1));
-  document.addEventListener('keydown', e => {
-    if (e.target.closest('input, textarea')) return;
-    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
-    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
-  });
-  let x0 = null;
-  stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
-  stage.addEventListener('touchend', e => {
-    if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
-    if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
-  });
-
-  const fromHash = parseInt(location.hash.slice(1), 10);
-  const start = SLIDES.findIndex(s => s.n === fromHash);
-  show(start >= 0 ? start : 0, true);
-})();
-</script>
-
 </body>
 </html>
