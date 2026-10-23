@@ -55,6 +55,9 @@ ul.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
 
 .projects > .lead { color: var(--muted); margin-top: 0; }
 .project.group-end { border-bottom: 0; }
+.project.upcoming { display: block; padding-block: 1.25rem 1.5rem; }
+.project.upcoming .tag { display: inline-block; font-family: var(--font-ui); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); border: 1px solid var(--accent); border-radius: 3px; padding: 0.05rem 0.4rem; margin-bottom: 0.5rem; }
+.project.upcoming p { margin: 0; }
 .group-sep { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0 0; font-family: var(--font-ui); font-size: 0.85rem; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
 .group-sep { text-align: center; }
@@ -139,7 +142,13 @@ footer { max-width: 42rem; margin: 0 auto; border-top: 1px solid var(--rule); pa
 
 <section class="projects" id="projects" aria-labelledby="proj-title">
   <h2 id="proj-title">Projects</h2>
-  <p class="lead">Two research papers, then five problems our team worked on for the International Physicists' Tournament 2024.</p>
+  <p class="lead">An upcoming project and two research papers, then five problems our team worked on for the International Physicists' Tournament 2024.</p>
+  <article class="project upcoming" id="discrete-flow-maps">
+    <span class="tag">Upcoming</span>
+    <h3>Discrete flow maps with reinforcement learning</h3>
+    <p class="meta">Research · CMU</p>
+    <p>Flow maps for discrete data, trained with reinforcement learning, applied to text generation and robot actions.</p>
+  </article>
   <article class="project" id="eqfm">
     <div class="media">
       <div class="anim" data-anim="eqfm"></div>
